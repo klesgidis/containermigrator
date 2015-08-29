@@ -1,6 +1,6 @@
-package forwarding;
+package gr.uoa.di.containermigrator.forwarding;
 
-import global.Global;
+import gr.uoa.di.containermigrator.global.Global;
 
 /**
  * @author kyriakos

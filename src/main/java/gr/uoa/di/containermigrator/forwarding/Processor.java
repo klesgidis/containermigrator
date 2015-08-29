@@ -1,8 +1,6 @@
-package forwarding;
+package gr.uoa.di.containermigrator.forwarding;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**

@@ -1,6 +1,6 @@
-package forwarding;
+package gr.uoa.di.containermigrator.forwarding;
 
-import global.Preferences;
+import gr.uoa.di.containermigrator.global.Preferences;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

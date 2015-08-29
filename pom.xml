@@ -18,7 +18,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gr.uoa.di.container-migrator.Driver</mainClass>
+                            <mainClass>gr.uoa.di.container-gr.uoa.di.containermigrator.migrator.Driver</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -30,9 +30,8 @@
 
     <properties>
         <jdk.version>1.7</jdk.version>
-        <slf4j-nop.version>1.7.0</slf4j-nop.version>
-        <protobuf-java.version>2.5.0</protobuf-java.version>
-        <docker-java.version>2.0.0</docker-java.version>
+        <slf4j-nop.version>1.6.2</slf4j-nop.version>
+        <protobuf-java.version>2.6.1</protobuf-java.version>
     </properties>
 
     <dependencies>
@@ -45,11 +44,6 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf-java.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.docker-java</groupId>
-            <artifactId>docker-java</artifactId>
-            <version>${docker-java.version}</version>
         </dependency>
     </dependencies>
 </project>

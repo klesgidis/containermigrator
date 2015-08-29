@@ -1,7 +1,7 @@
-package forwarding;
+package gr.uoa.di.containermigrator.forwarding;
 
-import global.Global;
-import global.Preferences;
+import gr.uoa.di.containermigrator.global.Global;
+import gr.uoa.di.containermigrator.global.Preferences;
 
 import java.io.Closeable;
 import java.io.IOException;
