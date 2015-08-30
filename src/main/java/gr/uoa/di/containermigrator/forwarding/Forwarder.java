@@ -1,6 +1,5 @@
 package gr.uoa.di.containermigrator.forwarding;
 
-import gr.uoa.di.containermigrator.global.Global;
 import gr.uoa.di.containermigrator.global.Preferences;
 
 import java.io.Closeable;

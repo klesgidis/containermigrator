@@ -8,7 +8,7 @@ public final class Command {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface ReadyToRestoreOrBuilder
+  public interface RestoreOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
     // required string image = 1;
@@ -26,35 +26,50 @@ public final class Command {
     com.google.protobuf.ByteString
         getImageBytes();
 
-    // required bool tcpEstablished = 2;
+    // required string registry = 2;
     /**
-     * <code>required bool tcpEstablished = 2;</code>
+     * <code>required string registry = 2;</code>
+     */
+    boolean hasRegistry();
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    java.lang.String getRegistry();
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRegistryBytes();
+
+    // required bool tcpEstablished = 3;
+    /**
+     * <code>required bool tcpEstablished = 3;</code>
      */
     boolean hasTcpEstablished();
     /**
-     * <code>required bool tcpEstablished = 2;</code>
+     * <code>required bool tcpEstablished = 3;</code>
      */
     boolean getTcpEstablished();
   }
   /**
-   * Protobuf type {@code ReadyToRestore}
+   * Protobuf type {@code Restore}
    */
-  public static final class ReadyToRestore extends
+  public static final class Restore extends
       com.google.protobuf.GeneratedMessage
-      implements ReadyToRestoreOrBuilder {
-    // Use ReadyToRestore.newBuilder() to construct.
-    private ReadyToRestore(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements RestoreOrBuilder {
+    // Use Restore.newBuilder() to construct.
+    private Restore(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private ReadyToRestore(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private Restore(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final ReadyToRestore defaultInstance;
-    public static ReadyToRestore getDefaultInstance() {
+    private static final Restore defaultInstance;
+    public static Restore getDefaultInstance() {
       return defaultInstance;
     }
 
-    public ReadyToRestore getDefaultInstanceForType() {
+    public Restore getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -64,7 +79,7 @@ public final class Command {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private ReadyToRestore(
+    private Restore(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -92,8 +107,13 @@ public final class Command {
               image_ = input.readBytes();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
+              registry_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               tcpEstablished_ = input.readBool();
               break;
             }
@@ -111,28 +131,28 @@ public final class Command {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_ReadyToRestore_descriptor;
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Restore_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_ReadyToRestore_fieldAccessorTable
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Restore_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.class, gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.Builder.class);
+              gr.uoa.di.containermigrator.communication.protocol.Command.Restore.class, gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ReadyToRestore> PARSER =
-        new com.google.protobuf.AbstractParser<ReadyToRestore>() {
-      public ReadyToRestore parsePartialFrom(
+    public static com.google.protobuf.Parser<Restore> PARSER =
+        new com.google.protobuf.AbstractParser<Restore>() {
+      public Restore parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ReadyToRestore(input, extensionRegistry);
+        return new Restore(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ReadyToRestore> getParserForType() {
+    public com.google.protobuf.Parser<Restore> getParserForType() {
       return PARSER;
     }
 
@@ -180,17 +200,60 @@ public final class Command {
       }
     }
 
-    // required bool tcpEstablished = 2;
-    public static final int TCPESTABLISHED_FIELD_NUMBER = 2;
-    private boolean tcpEstablished_;
+    // required string registry = 2;
+    public static final int REGISTRY_FIELD_NUMBER = 2;
+    private java.lang.Object registry_;
     /**
-     * <code>required bool tcpEstablished = 2;</code>
+     * <code>required string registry = 2;</code>
      */
-    public boolean hasTcpEstablished() {
+    public boolean hasRegistry() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required bool tcpEstablished = 2;</code>
+     * <code>required string registry = 2;</code>
+     */
+    public java.lang.String getRegistry() {
+      java.lang.Object ref = registry_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          registry_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRegistryBytes() {
+      java.lang.Object ref = registry_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        registry_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required bool tcpEstablished = 3;
+    public static final int TCPESTABLISHED_FIELD_NUMBER = 3;
+    private boolean tcpEstablished_;
+    /**
+     * <code>required bool tcpEstablished = 3;</code>
+     */
+    public boolean hasTcpEstablished() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required bool tcpEstablished = 3;</code>
      */
     public boolean getTcpEstablished() {
       return tcpEstablished_;
@@ -198,6 +261,7 @@ public final class Command {
 
     private void initFields() {
       image_ = "";
+      registry_ = "";
       tcpEstablished_ = false;
     }
     private byte memoizedIsInitialized = -1;
@@ -206,6 +270,10 @@ public final class Command {
       if (isInitialized != -1) return isInitialized == 1;
 
       if (!hasImage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRegistry()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -224,7 +292,10 @@ public final class Command {
         output.writeBytes(1, getImageBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBool(2, tcpEstablished_);
+        output.writeBytes(2, getRegistryBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBool(3, tcpEstablished_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -241,7 +312,11 @@ public final class Command {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, tcpEstablished_);
+          .computeBytesSize(2, getRegistryBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, tcpEstablished_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -255,53 +330,53 @@ public final class Command {
       return super.writeReplace();
     }
 
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(byte[] data)
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(java.io.InputStream input)
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseDelimitedFrom(java.io.InputStream input)
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseDelimitedFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parseFrom(
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Restore parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -310,7 +385,7 @@ public final class Command {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore prototype) {
+    public static Builder newBuilder(gr.uoa.di.containermigrator.communication.protocol.Command.Restore prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -322,24 +397,24 @@ public final class Command {
       return builder;
     }
     /**
-     * Protobuf type {@code ReadyToRestore}
+     * Protobuf type {@code Restore}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestoreOrBuilder {
+       implements gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_ReadyToRestore_descriptor;
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Restore_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_ReadyToRestore_fieldAccessorTable
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Restore_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.class, gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.Builder.class);
+                gr.uoa.di.containermigrator.communication.protocol.Command.Restore.class, gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder.class);
       }
 
-      // Construct using gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.newBuilder()
+      // Construct using gr.uoa.di.containermigrator.communication.protocol.Command.Restore.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -361,8 +436,10 @@ public final class Command {
         super.clear();
         image_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        tcpEstablished_ = false;
+        registry_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        tcpEstablished_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -372,23 +449,23 @@ public final class Command {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_ReadyToRestore_descriptor;
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Restore_descriptor;
       }
 
-      public gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore getDefaultInstanceForType() {
-        return gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.getDefaultInstance();
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Restore getDefaultInstanceForType() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance();
       }
 
-      public gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore build() {
-        gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore result = buildPartial();
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Restore build() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Restore result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore buildPartial() {
-        gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore result = new gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore(this);
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Restore buildPartial() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Restore result = new gr.uoa.di.containermigrator.communication.protocol.Command.Restore(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -398,6 +475,10 @@ public final class Command {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.registry_ = registry_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.tcpEstablished_ = tcpEstablished_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -405,19 +486,24 @@ public final class Command {
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore) {
-          return mergeFrom((gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore)other);
+        if (other instanceof gr.uoa.di.containermigrator.communication.protocol.Command.Restore) {
+          return mergeFrom((gr.uoa.di.containermigrator.communication.protocol.Command.Restore)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore other) {
-        if (other == gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore.getDefaultInstance()) return this;
+      public Builder mergeFrom(gr.uoa.di.containermigrator.communication.protocol.Command.Restore other) {
+        if (other == gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance()) return this;
         if (other.hasImage()) {
           bitField0_ |= 0x00000001;
           image_ = other.image_;
+          onChanged();
+        }
+        if (other.hasRegistry()) {
+          bitField0_ |= 0x00000002;
+          registry_ = other.registry_;
           onChanged();
         }
         if (other.hasTcpEstablished()) {
@@ -432,6 +518,10 @@ public final class Command {
           
           return false;
         }
+        if (!hasRegistry()) {
+          
+          return false;
+        }
         if (!hasTcpEstablished()) {
           
           return false;
@@ -443,11 +533,11 @@ public final class Command {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore parsedMessage = null;
+        gr.uoa.di.containermigrator.communication.protocol.Command.Restore parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (gr.uoa.di.containermigrator.communication.protocol.Command.ReadyToRestore) e.getUnfinishedMessage();
+          parsedMessage = (gr.uoa.di.containermigrator.communication.protocol.Command.Restore) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -532,55 +622,1685 @@ public final class Command {
         return this;
       }
 
-      // required bool tcpEstablished = 2;
-      private boolean tcpEstablished_ ;
+      // required string registry = 2;
+      private java.lang.Object registry_ = "";
       /**
-       * <code>required bool tcpEstablished = 2;</code>
+       * <code>required string registry = 2;</code>
        */
-      public boolean hasTcpEstablished() {
+      public boolean hasRegistry() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required bool tcpEstablished = 2;</code>
+       * <code>required string registry = 2;</code>
+       */
+      public java.lang.String getRegistry() {
+        java.lang.Object ref = registry_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          registry_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRegistryBytes() {
+        java.lang.Object ref = registry_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          registry_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder setRegistry(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        registry_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder clearRegistry() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        registry_ = getDefaultInstance().getRegistry();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder setRegistryBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        registry_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required bool tcpEstablished = 3;
+      private boolean tcpEstablished_ ;
+      /**
+       * <code>required bool tcpEstablished = 3;</code>
+       */
+      public boolean hasTcpEstablished() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required bool tcpEstablished = 3;</code>
        */
       public boolean getTcpEstablished() {
         return tcpEstablished_;
       }
       /**
-       * <code>required bool tcpEstablished = 2;</code>
+       * <code>required bool tcpEstablished = 3;</code>
        */
       public Builder setTcpEstablished(boolean value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         tcpEstablished_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool tcpEstablished = 2;</code>
+       * <code>required bool tcpEstablished = 3;</code>
        */
       public Builder clearTcpEstablished() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         tcpEstablished_ = false;
         onChanged();
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:ReadyToRestore)
+      // @@protoc_insertion_point(builder_scope:Restore)
     }
 
     static {
-      defaultInstance = new ReadyToRestore(true);
+      defaultInstance = new Restore(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:ReadyToRestore)
+    // @@protoc_insertion_point(class_scope:Restore)
+  }
+
+  public interface PullOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string image = 1;
+    /**
+     * <code>required string image = 1;</code>
+     */
+    boolean hasImage();
+    /**
+     * <code>required string image = 1;</code>
+     */
+    java.lang.String getImage();
+    /**
+     * <code>required string image = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getImageBytes();
+
+    // required string registry = 2;
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    boolean hasRegistry();
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    java.lang.String getRegistry();
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRegistryBytes();
+  }
+  /**
+   * Protobuf type {@code Pull}
+   */
+  public static final class Pull extends
+      com.google.protobuf.GeneratedMessage
+      implements PullOrBuilder {
+    // Use Pull.newBuilder() to construct.
+    private Pull(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Pull(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Pull defaultInstance;
+    public static Pull getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Pull getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Pull(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              image_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              registry_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Pull_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Pull_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              gr.uoa.di.containermigrator.communication.protocol.Command.Pull.class, gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Pull> PARSER =
+        new com.google.protobuf.AbstractParser<Pull>() {
+      public Pull parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Pull(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Pull> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string image = 1;
+    public static final int IMAGE_FIELD_NUMBER = 1;
+    private java.lang.Object image_;
+    /**
+     * <code>required string image = 1;</code>
+     */
+    public boolean hasImage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string image = 1;</code>
+     */
+    public java.lang.String getImage() {
+      java.lang.Object ref = image_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          image_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string image = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getImageBytes() {
+      java.lang.Object ref = image_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        image_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required string registry = 2;
+    public static final int REGISTRY_FIELD_NUMBER = 2;
+    private java.lang.Object registry_;
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    public boolean hasRegistry() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    public java.lang.String getRegistry() {
+      java.lang.Object ref = registry_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          registry_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string registry = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRegistryBytes() {
+      java.lang.Object ref = registry_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        registry_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      image_ = "";
+      registry_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasImage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRegistry()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getImageBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getRegistryBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getImageBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getRegistryBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Pull parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(gr.uoa.di.containermigrator.communication.protocol.Command.Pull prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Pull}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Pull_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Pull_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                gr.uoa.di.containermigrator.communication.protocol.Command.Pull.class, gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder.class);
+      }
+
+      // Construct using gr.uoa.di.containermigrator.communication.protocol.Command.Pull.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        image_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        registry_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Pull_descriptor;
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Pull getDefaultInstanceForType() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance();
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Pull build() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Pull result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Pull buildPartial() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Pull result = new gr.uoa.di.containermigrator.communication.protocol.Command.Pull(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.image_ = image_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.registry_ = registry_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof gr.uoa.di.containermigrator.communication.protocol.Command.Pull) {
+          return mergeFrom((gr.uoa.di.containermigrator.communication.protocol.Command.Pull)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(gr.uoa.di.containermigrator.communication.protocol.Command.Pull other) {
+        if (other == gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance()) return this;
+        if (other.hasImage()) {
+          bitField0_ |= 0x00000001;
+          image_ = other.image_;
+          onChanged();
+        }
+        if (other.hasRegistry()) {
+          bitField0_ |= 0x00000002;
+          registry_ = other.registry_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasImage()) {
+          
+          return false;
+        }
+        if (!hasRegistry()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Pull parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (gr.uoa.di.containermigrator.communication.protocol.Command.Pull) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string image = 1;
+      private java.lang.Object image_ = "";
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public boolean hasImage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public java.lang.String getImage() {
+        java.lang.Object ref = image_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          image_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getImageBytes() {
+        java.lang.Object ref = image_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          image_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public Builder setImage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        image_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public Builder clearImage() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        image_ = getDefaultInstance().getImage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string image = 1;</code>
+       */
+      public Builder setImageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        image_ = value;
+        onChanged();
+        return this;
+      }
+
+      // required string registry = 2;
+      private java.lang.Object registry_ = "";
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public boolean hasRegistry() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public java.lang.String getRegistry() {
+        java.lang.Object ref = registry_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          registry_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRegistryBytes() {
+        java.lang.Object ref = registry_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          registry_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder setRegistry(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        registry_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder clearRegistry() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        registry_ = getDefaultInstance().getRegistry();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string registry = 2;</code>
+       */
+      public Builder setRegistryBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        registry_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Pull)
+    }
+
+    static {
+      defaultInstance = new Pull(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Pull)
+  }
+
+  public interface MessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required .Message.Type type = 1;
+    /**
+     * <code>required .Message.Type type = 1;</code>
+     */
+    boolean hasType();
+    /**
+     * <code>required .Message.Type type = 1;</code>
+     */
+    gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type getType();
+
+    // optional .Restore restore = 2;
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    boolean hasRestore();
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    gr.uoa.di.containermigrator.communication.protocol.Command.Restore getRestore();
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder getRestoreOrBuilder();
+
+    // optional .Pull pull = 3;
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    boolean hasPull();
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    gr.uoa.di.containermigrator.communication.protocol.Command.Pull getPull();
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder getPullOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Message}
+   */
+  public static final class Message extends
+      com.google.protobuf.GeneratedMessage
+      implements MessageOrBuilder {
+    // Use Message.newBuilder() to construct.
+    private Message(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Message(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Message defaultInstance;
+    public static Message getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Message getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Message(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type value = gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                type_ = value;
+              }
+              break;
+            }
+            case 18: {
+              gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = restore_.toBuilder();
+              }
+              restore_ = input.readMessage(gr.uoa.di.containermigrator.communication.protocol.Command.Restore.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(restore_);
+                restore_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 26: {
+              gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = pull_.toBuilder();
+              }
+              pull_ = input.readMessage(gr.uoa.di.containermigrator.communication.protocol.Command.Pull.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pull_);
+                pull_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Message_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Message_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              gr.uoa.di.containermigrator.communication.protocol.Command.Message.class, gr.uoa.di.containermigrator.communication.protocol.Command.Message.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Message> PARSER =
+        new com.google.protobuf.AbstractParser<Message>() {
+      public Message parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Message(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Message> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Message.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>RESTORE = 0;</code>
+       */
+      RESTORE(0, 0),
+      /**
+       * <code>PULL = 1;</code>
+       */
+      PULL(1, 1),
+      ;
+
+      /**
+       * <code>RESTORE = 0;</code>
+       */
+      public static final int RESTORE_VALUE = 0;
+      /**
+       * <code>PULL = 1;</code>
+       */
+      public static final int PULL_VALUE = 1;
+
+
+      public final int getNumber() { return value; }
+
+      public static Type valueOf(int value) {
+        switch (value) {
+          case 0: return RESTORE;
+          case 1: return PULL;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.Message.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private Type(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Message.Type)
+    }
+
+    private int bitField0_;
+    // required .Message.Type type = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type type_;
+    /**
+     * <code>required .Message.Type type = 1;</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .Message.Type type = 1;</code>
+     */
+    public gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type getType() {
+      return type_;
+    }
+
+    // optional .Restore restore = 2;
+    public static final int RESTORE_FIELD_NUMBER = 2;
+    private gr.uoa.di.containermigrator.communication.protocol.Command.Restore restore_;
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    public boolean hasRestore() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    public gr.uoa.di.containermigrator.communication.protocol.Command.Restore getRestore() {
+      return restore_;
+    }
+    /**
+     * <code>optional .Restore restore = 2;</code>
+     */
+    public gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder getRestoreOrBuilder() {
+      return restore_;
+    }
+
+    // optional .Pull pull = 3;
+    public static final int PULL_FIELD_NUMBER = 3;
+    private gr.uoa.di.containermigrator.communication.protocol.Command.Pull pull_;
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    public boolean hasPull() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    public gr.uoa.di.containermigrator.communication.protocol.Command.Pull getPull() {
+      return pull_;
+    }
+    /**
+     * <code>optional .Pull pull = 3;</code>
+     */
+    public gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder getPullOrBuilder() {
+      return pull_;
+    }
+
+    private void initFields() {
+      type_ = gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type.RESTORE;
+      restore_ = gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance();
+      pull_ = gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (hasRestore()) {
+        if (!getRestore().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasPull()) {
+        if (!getPull().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, restore_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, pull_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, restore_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, pull_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static gr.uoa.di.containermigrator.communication.protocol.Command.Message parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(gr.uoa.di.containermigrator.communication.protocol.Command.Message prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Message}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements gr.uoa.di.containermigrator.communication.protocol.Command.MessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Message_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Message_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                gr.uoa.di.containermigrator.communication.protocol.Command.Message.class, gr.uoa.di.containermigrator.communication.protocol.Command.Message.Builder.class);
+      }
+
+      // Construct using gr.uoa.di.containermigrator.communication.protocol.Command.Message.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getRestoreFieldBuilder();
+          getPullFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        type_ = gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type.RESTORE;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (restoreBuilder_ == null) {
+          restore_ = gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance();
+        } else {
+          restoreBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (pullBuilder_ == null) {
+          pull_ = gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance();
+        } else {
+          pullBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.internal_static_Message_descriptor;
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Message getDefaultInstanceForType() {
+        return gr.uoa.di.containermigrator.communication.protocol.Command.Message.getDefaultInstance();
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Message build() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Message result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Message buildPartial() {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Message result = new gr.uoa.di.containermigrator.communication.protocol.Command.Message(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (restoreBuilder_ == null) {
+          result.restore_ = restore_;
+        } else {
+          result.restore_ = restoreBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (pullBuilder_ == null) {
+          result.pull_ = pull_;
+        } else {
+          result.pull_ = pullBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof gr.uoa.di.containermigrator.communication.protocol.Command.Message) {
+          return mergeFrom((gr.uoa.di.containermigrator.communication.protocol.Command.Message)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(gr.uoa.di.containermigrator.communication.protocol.Command.Message other) {
+        if (other == gr.uoa.di.containermigrator.communication.protocol.Command.Message.getDefaultInstance()) return this;
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasRestore()) {
+          mergeRestore(other.getRestore());
+        }
+        if (other.hasPull()) {
+          mergePull(other.getPull());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (hasRestore()) {
+          if (!getRestore().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasPull()) {
+          if (!getPull().isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        gr.uoa.di.containermigrator.communication.protocol.Command.Message parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (gr.uoa.di.containermigrator.communication.protocol.Command.Message) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required .Message.Type type = 1;
+      private gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type type_ = gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type.RESTORE;
+      /**
+       * <code>required .Message.Type type = 1;</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .Message.Type type = 1;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type getType() {
+        return type_;
+      }
+      /**
+       * <code>required .Message.Type type = 1;</code>
+       */
+      public Builder setType(gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required .Message.Type type = 1;</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        type_ = gr.uoa.di.containermigrator.communication.protocol.Command.Message.Type.RESTORE;
+        onChanged();
+        return this;
+      }
+
+      // optional .Restore restore = 2;
+      private gr.uoa.di.containermigrator.communication.protocol.Command.Restore restore_ = gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          gr.uoa.di.containermigrator.communication.protocol.Command.Restore, gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder> restoreBuilder_;
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public boolean hasRestore() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Restore getRestore() {
+        if (restoreBuilder_ == null) {
+          return restore_;
+        } else {
+          return restoreBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public Builder setRestore(gr.uoa.di.containermigrator.communication.protocol.Command.Restore value) {
+        if (restoreBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          restore_ = value;
+          onChanged();
+        } else {
+          restoreBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public Builder setRestore(
+          gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder builderForValue) {
+        if (restoreBuilder_ == null) {
+          restore_ = builderForValue.build();
+          onChanged();
+        } else {
+          restoreBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public Builder mergeRestore(gr.uoa.di.containermigrator.communication.protocol.Command.Restore value) {
+        if (restoreBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              restore_ != gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance()) {
+            restore_ =
+              gr.uoa.di.containermigrator.communication.protocol.Command.Restore.newBuilder(restore_).mergeFrom(value).buildPartial();
+          } else {
+            restore_ = value;
+          }
+          onChanged();
+        } else {
+          restoreBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public Builder clearRestore() {
+        if (restoreBuilder_ == null) {
+          restore_ = gr.uoa.di.containermigrator.communication.protocol.Command.Restore.getDefaultInstance();
+          onChanged();
+        } else {
+          restoreBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder getRestoreBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getRestoreFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder getRestoreOrBuilder() {
+        if (restoreBuilder_ != null) {
+          return restoreBuilder_.getMessageOrBuilder();
+        } else {
+          return restore_;
+        }
+      }
+      /**
+       * <code>optional .Restore restore = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          gr.uoa.di.containermigrator.communication.protocol.Command.Restore, gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder> 
+          getRestoreFieldBuilder() {
+        if (restoreBuilder_ == null) {
+          restoreBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              gr.uoa.di.containermigrator.communication.protocol.Command.Restore, gr.uoa.di.containermigrator.communication.protocol.Command.Restore.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.RestoreOrBuilder>(
+                  restore_,
+                  getParentForChildren(),
+                  isClean());
+          restore_ = null;
+        }
+        return restoreBuilder_;
+      }
+
+      // optional .Pull pull = 3;
+      private gr.uoa.di.containermigrator.communication.protocol.Command.Pull pull_ = gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          gr.uoa.di.containermigrator.communication.protocol.Command.Pull, gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder> pullBuilder_;
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public boolean hasPull() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Pull getPull() {
+        if (pullBuilder_ == null) {
+          return pull_;
+        } else {
+          return pullBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public Builder setPull(gr.uoa.di.containermigrator.communication.protocol.Command.Pull value) {
+        if (pullBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pull_ = value;
+          onChanged();
+        } else {
+          pullBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public Builder setPull(
+          gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder builderForValue) {
+        if (pullBuilder_ == null) {
+          pull_ = builderForValue.build();
+          onChanged();
+        } else {
+          pullBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public Builder mergePull(gr.uoa.di.containermigrator.communication.protocol.Command.Pull value) {
+        if (pullBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              pull_ != gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance()) {
+            pull_ =
+              gr.uoa.di.containermigrator.communication.protocol.Command.Pull.newBuilder(pull_).mergeFrom(value).buildPartial();
+          } else {
+            pull_ = value;
+          }
+          onChanged();
+        } else {
+          pullBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public Builder clearPull() {
+        if (pullBuilder_ == null) {
+          pull_ = gr.uoa.di.containermigrator.communication.protocol.Command.Pull.getDefaultInstance();
+          onChanged();
+        } else {
+          pullBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder getPullBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getPullFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      public gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder getPullOrBuilder() {
+        if (pullBuilder_ != null) {
+          return pullBuilder_.getMessageOrBuilder();
+        } else {
+          return pull_;
+        }
+      }
+      /**
+       * <code>optional .Pull pull = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          gr.uoa.di.containermigrator.communication.protocol.Command.Pull, gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder> 
+          getPullFieldBuilder() {
+        if (pullBuilder_ == null) {
+          pullBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              gr.uoa.di.containermigrator.communication.protocol.Command.Pull, gr.uoa.di.containermigrator.communication.protocol.Command.Pull.Builder, gr.uoa.di.containermigrator.communication.protocol.Command.PullOrBuilder>(
+                  pull_,
+                  getParentForChildren(),
+                  isClean());
+          pull_ = null;
+        }
+        return pullBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Message)
+    }
+
+    static {
+      defaultInstance = new Message(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Message)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ReadyToRestore_descriptor;
+    internal_static_Restore_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ReadyToRestore_fieldAccessorTable;
+      internal_static_Restore_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_Pull_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Pull_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_Message_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Message_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -591,21 +2311,38 @@ public final class Command {
   static {
     java.lang.String[] descriptorData = {
       "\n&src/main/resources/proto/command.proto" +
-      "\"7\n\016ReadyToRestore\022\r\n\005image\030\001 \002(\t\022\026\n\016tcp" +
-      "Established\030\002 \002(\010B4\n2gr.uoa.di.container" +
-      "migrator.communication.protocol"
+      "\"B\n\007Restore\022\r\n\005image\030\001 \002(\t\022\020\n\010registry\030\002" +
+      " \002(\t\022\026\n\016tcpEstablished\030\003 \002(\010\"\'\n\004Pull\022\r\n\005" +
+      "image\030\001 \002(\t\022\020\n\010registry\030\002 \002(\t\"u\n\007Message" +
+      "\022\033\n\004type\030\001 \002(\0162\r.Message.Type\022\031\n\007restore" +
+      "\030\002 \001(\0132\010.Restore\022\023\n\004pull\030\003 \001(\0132\005.Pull\"\035\n" +
+      "\004Type\022\013\n\007RESTORE\020\000\022\010\n\004PULL\020\001B4\n2gr.uoa.d" +
+      "i.containermigrator.communication.protoc" +
+      "ol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_ReadyToRestore_descriptor =
+          internal_static_Restore_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_ReadyToRestore_fieldAccessorTable = new
+          internal_static_Restore_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ReadyToRestore_descriptor,
-              new java.lang.String[] { "Image", "TcpEstablished", });
+              internal_static_Restore_descriptor,
+              new java.lang.String[] { "Image", "Registry", "TcpEstablished", });
+          internal_static_Pull_descriptor =
+            getDescriptor().getMessageTypes().get(1);
+          internal_static_Pull_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_Pull_descriptor,
+              new java.lang.String[] { "Image", "Registry", });
+          internal_static_Message_descriptor =
+            getDescriptor().getMessageTypes().get(2);
+          internal_static_Message_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_Message_descriptor,
+              new java.lang.String[] { "Type", "Restore", "Pull", });
           return null;
         }
       };

@@ -1,7 +1,5 @@
 package gr.uoa.di.containermigrator.forwarding;
 
-import gr.uoa.di.containermigrator.global.Global;
-
 /**
  * @author kyriakos
  */

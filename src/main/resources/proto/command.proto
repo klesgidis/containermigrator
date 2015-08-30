@@ -1,8 +1,36 @@
 option java_package = "gr.uoa.di.containermigrator.communication.protocol";
 
-message ReadyToRestore {
+message Restore {
+
     required string image = 1;
-    required bool tcpEstablished = 2;
+
+    required string registry = 2;
+
+    required bool tcpEstablished = 3;
+
+    // TODO put other restore props too
+}
+
+message Pull {
+
+    required string image = 1;
+
+    required string registry = 2;
+
+}
+
+message Message {
+
+    enum Type {
+        RESTORE = 0;
+        PULL = 1;
+    }
+
+    required Type type = 1;
+
+    optional Restore restore = 2;
+
+    optional Pull pull = 3;
 }
 
 //message NodeCmd {

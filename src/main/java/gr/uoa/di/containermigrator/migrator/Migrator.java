@@ -1,9 +1,12 @@
 package gr.uoa.di.containermigrator.migrator;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.api.model.CriuOptions;
 import com.github.dockerjava.core.command.PullImageResultCallback;
 import com.github.dockerjava.core.command.PushImageResultCallback;
+import gr.uoa.di.containermigrator.communication.channel.ChannelUtils;
+import gr.uoa.di.containermigrator.communication.protocol.Command;
 import gr.uoa.di.containermigrator.docker.DockerUtils;
 import gr.uoa.di.containermigrator.global.Global;
 import gr.uoa.di.containermigrator.global.Preferences;
@@ -33,16 +36,27 @@ public class Migrator implements Preferences {
 	}
 
 	public void init() throws Exception {
-		// Start registry
-		if (!DockerUtils.isRunning(REGISTRY_CONTAINER)) {
-			if (!DockerUtils.exists(REGISTRY_CONTAINER))
-				throw new Exception("Container " + REGISTRY_CONTAINER + " doesn't exist.");
+		System.out.println("Warming up " + this.srcContainer + ".");
 
-			//docker run -d -p 5000:5000 --name registry registry:2
-			this.dockerClient.startContainerCmd(REGISTRY_CONTAINER).exec();
-		}
+		InspectContainerResponse inspection = dockerClient.inspectContainerCmd(this.srcContainer)
+				.exec();
 
-		// TODO Send initial Image to registry to prepare for a quick migration
+		// Send initial image to registry
+		final String image = inspection.getConfig().getImage();
+		this.pushToRegistry(image);
+
+		// Send message to peers to download the image, to be in consistent state
+		Command.Message message = Command.Message.newBuilder()
+				.setType(Command.Message.Type.PULL)
+				.setPull(
+						Command.Pull.newBuilder()
+								.setImage(image)
+								.setRegistry(REGISTRY_URI)
+				)
+				.build();
+		ChannelUtils.multicastMessage(message);
+
+		System.out.println("Warm up complete for " + this.srcContainer + ".");
 	}
 
 	public void migrate() {
@@ -81,27 +95,36 @@ public class Migrator implements Preferences {
 		System.out.println("OK");
 	}
 
-	private String commitAndPush() {
+	private String commit() {
 		final String newImageName = "tomcat-test-commit";
 		System.out.println("Committing container " + this.srcContainer);
 		this.dockerClient.commitCmd(this.srcContainer)
 				.withRepository(newImageName)
 				.exec();
 		System.out.println("OK");
+		return  newImageName;
+	}
 
-		final String taggedImage = REGISTRY_URI + newImageName;
-		System.out.println("Tagging image " + newImageName);
-		this.dockerClient.tagImageCmd(newImageName, taggedImage, "")
+	private String pushToRegistry(String image) {
+		final String taggedImage = REGISTRY_URI + image;
+		System.out.println("Tagging image " + image);
+		this.dockerClient.tagImageCmd(image, taggedImage, "")
 				.withForce()
 				.exec();
 		System.out.println("OK");
-		System.out.println("Pushing image " + REGISTRY_URI + newImageName);
+		System.out.println("Pushing image " + REGISTRY_URI + image);
 		this.dockerClient.pushImageCmd(taggedImage)
 				.exec(new PushImageResultCallback())
 				.awaitSuccess();
 		System.out.println("OK");
 
 		return taggedImage;
+	}
+
+	private String commitAndPush() {
+		String image = this.commit();
+
+		return this.pushToRegistry(image);
 	}
 
 	private void pull(String taggedImage) {
