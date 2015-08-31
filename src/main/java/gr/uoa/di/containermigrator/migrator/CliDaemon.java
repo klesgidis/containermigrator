@@ -1,12 +1,8 @@
 package gr.uoa.di.containermigrator.migrator;
 
-import gr.uoa.di.containermigrator.communication.channel.*;
-import gr.uoa.di.containermigrator.communication.protocol.Command;
 import gr.uoa.di.containermigrator.docker.DockerUtils;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -27,7 +23,7 @@ public class CliDaemon implements Runnable {
 			while ((line = in.readLine()) != null && line.length() != 0) {
 				String [] args = line.split(" ");
 				switch (args[0]) {
-					case "start":
+					case "start": {
 						if (args.length < 2) usage();
 
 						final String containerName = args[1];
@@ -36,9 +32,28 @@ public class CliDaemon implements Runnable {
 							break;
 						}
 
-						Migrations.getMigrations().putIfAbsent(containerName, new Migrator(containerName));
+						Migrations.getMigrations().putIfAbsent(containerName, new MigrationOperator(containerName));
 						break;
-					case "help":
+					}
+					case "migrate": {
+						if (args.length < 2) usage();
+
+						final String containerName = args[1];
+						if (!DockerUtils.exists(containerName)) {
+							usage();
+							break;
+						}
+
+						MigrationOperator m = Migrations.getMigrations().get(containerName);
+						if (m == null) {
+							System.out.println("You have to start a container" +
+									" from this command line and then migrate.");
+							break;
+						}
+						m.migrate();
+						break;
+					}
+					case "help": {
 						StringBuilder sb = new StringBuilder("");
 						sb.append("-- start <container-name>")
 								.append(":\t\tStarts an already existing container ")
@@ -47,6 +62,7 @@ public class CliDaemon implements Runnable {
 								.append("Returns all the available commands.");
 						System.out.println(sb.toString());
 						break;
+					}
 					default:
 						usage();
 				}

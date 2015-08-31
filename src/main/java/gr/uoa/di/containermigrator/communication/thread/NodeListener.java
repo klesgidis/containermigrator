@@ -2,7 +2,7 @@ package gr.uoa.di.containermigrator.communication.thread;
 
 import gr.uoa.di.containermigrator.communication.channel.ChannelUtils;
 import gr.uoa.di.containermigrator.communication.channel.EndpointCollection;
-import gr.uoa.di.containermigrator.communication.protocol.Command;
+import gr.uoa.di.containermigrator.communication.protocol.Protocol;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class NodeListener implements Runnable {
 				Socket socket = EndpointCollection.getNodeChannel().getServerEndpoint().getSocket().accept();
 
 				try(InputStream in = socket.getInputStream(); DataInputStream dIn = new DataInputStream(in)) {
-					Command.Message message = ChannelUtils.recvMessage(dIn);
+					Protocol.Message message = ChannelUtils.recvMessage(dIn);
 
 					new Thread(new NodeMessageHandler(message)).start();
 				}
