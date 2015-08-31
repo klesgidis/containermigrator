@@ -11,7 +11,8 @@ import gr.uoa.di.containermigrator.migrator.SlaveMigrationOperator;
 import java.io.IOException;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class NodeMessageHandler implements Runnable, Preferences {
 	private final Protocol.Message message;

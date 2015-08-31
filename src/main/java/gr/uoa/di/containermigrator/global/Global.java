@@ -4,7 +4,8 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DockerClientBuilder;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class Global implements Preferences {
 	private static DockerClient client = null;

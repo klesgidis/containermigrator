@@ -8,7 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class Listener implements Runnable, Preferences {
 	private final InetSocketAddress address;

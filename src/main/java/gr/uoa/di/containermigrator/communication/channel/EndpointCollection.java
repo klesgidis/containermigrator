@@ -5,7 +5,8 @@ import gr.uoa.di.containermigrator.global.Global;
 import gr.uoa.di.containermigrator.global.NodeProperties;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class EndpointCollection {
 	private final static NodeProperties props = Global.getProperties();

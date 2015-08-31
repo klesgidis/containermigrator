@@ -9,7 +9,8 @@ import java.io.OutputStream;
 import java.net.SocketException;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class Forwarder implements Runnable, Closeable, Preferences {
 	private String name;

@@ -6,7 +6,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class CliDaemon implements Runnable {
 

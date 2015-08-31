@@ -1,7 +1,8 @@
 package gr.uoa.di.containermigrator.forwarding;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class StateMonitor {
 	private static StateMonitor ourInstance = new StateMonitor();

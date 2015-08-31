@@ -73,28 +73,17 @@ public class MigrationOperator implements Preferences {
 	}
 
 	public void migrate() throws Exception {
+		// Send message to peer to be prepared for the migration
 		this.sendPrepForMigration();
 
 		// Checkpoint
 		this.checkpoint();
 
 		// Commit
-		String image = this.commitAndPush();
+		this.commitAndPush();
 
 		// Send memory data
 		this.compressAndSendMemoryData();
-
-		// Send command to start restore
-
-
-		// Pull
-//		this.pull(taggedImage);
-//
-//		// Clone container
-//		String trgContainer = this.createClone(taggedImage);
-//
-//		// Restore
-//		this.restore(trgContainer);
 	}
 
 	private void sendPrepForMigration() throws Exception {
@@ -115,31 +104,6 @@ public class MigrationOperator implements Preferences {
 		}
 	}
 
-	private void compressAndSendMemoryData() throws Exception {
-		final String output = this.containerBase + "/memory.zip";
-		System.out.println("Compressing to " + output);
-		Zip zip = new Zip(this.imageDir, output);
-		zip.generateFileList();
-		zip.zipIt();
-		System.out.println("OK");
-
-		System.out.println("Sending data");
-		ByteString bytes = MigrationUtils.FileInputStreamToByteString(new File(output));
-		Protocol.Message message = Protocol.Message.newBuilder()
-				.setType(Protocol.Message.Type.MEMORY_DATA)
-				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
-								.setOriginalContainer(this.container)
-								.setData(bytes)
-				)
-				.build();
-
-		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
-			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
-			ChannelUtils.sendMessage(message, dOut);
-		}
-		System.out.println("OK");
-	}
-
 	private void checkpoint() {
 		System.out.println("Checkpointing container " + this.container);
 		this.dockerClient.checkpointContainerCmd(this.container)
@@ -150,7 +114,13 @@ public class MigrationOperator implements Preferences {
 		System.out.println("OK");
 	}
 
+	private String commitAndPush() {
+		String image = this.commit();
 
+		this.pushToRegistry(image);
+
+		return image;
+	}
 
 	private String commit() {
 		// TODO You have to handle containers with the same image (Put Random num on commit name)
@@ -180,38 +150,29 @@ public class MigrationOperator implements Preferences {
 		return taggedImage;
 	}
 
-	private String commitAndPush() {
-		String image = this.commit();
+	private void compressAndSendMemoryData() throws Exception {
+		final String output = this.containerBase + "/memory.zip";
+		System.out.println("Compressing to " + output);
+		Zip zip = new Zip(this.imageDir, output);
+		zip.generateFileList();
+		zip.zipIt();
+		System.out.println("OK");
 
-		this.pushToRegistry(image);
+		System.out.println("Sending data");
+		ByteString bytes = MigrationUtils.FileInputStreamToByteString(new File(output));
+		Protocol.Message message = Protocol.Message.newBuilder()
+				.setType(Protocol.Message.Type.MEMORY_DATA)
+				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
+								.setOriginalContainer(this.container)
+								.setData(bytes)
+				)
+				.build();
 
-		return image;
-	}
-
-	private void pull(String taggedImage) {
-		System.out.println("Pulling " + taggedImage);
-		this.dockerClient.pullImageCmd(taggedImage)
-				.exec(new PullImageResultCallback())
-				.awaitSuccess();
+		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
+			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
+			ChannelUtils.sendMessage(message, dOut);
+		}
 		System.out.println("OK");
 	}
 
-	private String createClone(String image) {
-		final String newContainer = this.container + "-restored";
-		System.out.println("Creating container " + newContainer + " from " + image);
-		dockerClient.createContainerCmd(image)
-				.withName(newContainer)
-				.exec();
-		System.out.println("OK");
-		return newContainer;
-	}
-
-	private void restore(String trgContainer) {
-		System.out.println("Restoring to container " + trgContainer);
-		this.dockerClient.restoreContainerCmd(trgContainer)
-				.withCriuOptions(new CriuOptions(this.imageDir, this.workDir, true))
-				.withForce(true)
-				.exec();
-		System.out.println("OK");
-	}
 }

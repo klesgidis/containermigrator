@@ -12,7 +12,7 @@ import java.net.Socket;
  * @email klesgidis@di.uoa.gr
  */
 public class ChannelUtils {
-
+	// TODO Handle multiple peers
 	public static void sendMessage(Protocol.Message message, DataOutputStream dOut) throws IOException {
 		message.writeDelimitedTo(dOut);
 	}

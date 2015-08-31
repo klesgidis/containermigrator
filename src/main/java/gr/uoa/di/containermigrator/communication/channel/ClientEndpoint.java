@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * Created by kyriakos on 5/11/15.
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class ClientEndpoint implements AutoCloseable {
 	private String address;

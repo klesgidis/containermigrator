@@ -1,7 +1,8 @@
 package gr.uoa.di.containermigrator.communication.channel;
 
 /**
- * Created by kyriakos on 5/11/15.
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class Endpoint {
 	private ClientEndpoint clientEndpoint = null;

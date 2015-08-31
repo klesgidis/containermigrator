@@ -25,13 +25,6 @@ public class Zip
 		fileList = new ArrayList<>();
 	}
 
-	//	public static void main( String[] args )
-//	{
-//		AppZip appZip = new AppZip();
-//		appZip.generateFileList(new File(SOURCE_FOLDER));
-//		appZip.zipIt(OUTPUT_ZIP_FILE);
-//	}
-
 	/**
 	 * Zip it
 	 */
@@ -44,11 +37,8 @@ public class Zip
 			FileOutputStream fos = new FileOutputStream(this.output);
 			ZipOutputStream zos = new ZipOutputStream(fos);
 
-			//System.out.println("Output to Zip : " + this.output);
-
 			for(String file : this.fileList){
 
-				//System.out.println("File Added : " + file);
 				ZipEntry ze = new ZipEntry(file);
 				zos.putNextEntry(ze);
 

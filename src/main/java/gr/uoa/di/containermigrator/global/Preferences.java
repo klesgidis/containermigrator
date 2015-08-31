@@ -1,7 +1,8 @@
 package gr.uoa.di.containermigrator.global;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public interface Preferences {
 

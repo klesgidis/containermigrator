@@ -10,7 +10,8 @@ import java.io.InputStream;
 import java.net.Socket;
 
 /**
- * @author klesgidis
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class NodeListener implements Runnable {
 

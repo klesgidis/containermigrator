@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- * @author kyriakos
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class Processor implements Runnable {
 	private final Socket src;

@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- * @author klesgidis
+ * @author Kyriakos Lesgidis
+ * @email klesgidis@di.uoa.gr
  */
 public class ServerEndpoint implements AutoCloseable {
 	private int port;
