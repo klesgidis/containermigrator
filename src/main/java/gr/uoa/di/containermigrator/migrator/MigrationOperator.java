@@ -21,7 +21,7 @@ import java.io.File;
  */
 public class MigrationOperator implements Preferences {
 	private final String container;
-	private final String image;
+	private String image;
 	private final String migrationTag = "migrate";
 
 	private final String imageDir;
@@ -54,18 +54,18 @@ public class MigrationOperator implements Preferences {
 		this.pushToRegistry(this.image);
 
 		// Send message to peers to download the image, to be in consistent state
-		this.multicastForPull(this.image);
+		this.multicastWarmUp(this.image);
 
 		dockerClient.startContainerCmd(this.container).exec();
 
 		System.out.println("Warm up complete for " + this.container + ".");
 	}
 
-	private void multicastForPull(String image) throws Exception {
+	private void multicastWarmUp(String image) throws Exception {
 		Protocol.Message message = Protocol.Message.newBuilder()
-				.setType(Protocol.Message.Type.PULL)
-				.setPull(
-						Protocol.Message.Pull.newBuilder()
+				.setType(Protocol.Message.Type.WARM_UP)
+				.setWarmUp(
+						Protocol.Message.WarmUp.newBuilder()
 								.setImage(image)
 				)
 				.build();
@@ -73,30 +73,19 @@ public class MigrationOperator implements Preferences {
 	}
 
 	public void migrate() throws Exception {
+		this.sendPrepForMigration();
+
 		// Checkpoint
 		this.checkpoint();
 
 		// Commit
 		String image = this.commitAndPush();
 
-		// TODO send memory files
+		// Send memory data
 		this.compressAndSendMemoryData();
 
+		// Send command to start restore
 
-		Protocol.Message message = Protocol.Message.newBuilder()
-				.setType(Protocol.Message.Type.RESTORE)
-				.setRestore(
-						Protocol.Message.Restore.newBuilder()
-								.setImage(image)
-								.setTag(this.migrationTag)
-								.setTcpEstablished(true)
-				)
-				.build();
-
-		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
-			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
-			ChannelUtils.sendMessage(message, dOut);
-		}
 
 		// Pull
 //		this.pull(taggedImage);
@@ -106,6 +95,24 @@ public class MigrationOperator implements Preferences {
 //
 //		// Restore
 //		this.restore(trgContainer);
+	}
+
+	private void sendPrepForMigration() throws Exception {
+		Protocol.Message message = Protocol.Message.newBuilder()
+				.setType(Protocol.Message.Type.PREP_FOR_MIGRATION)
+				.setPrepForMigration(
+						Protocol.Message.PrepForMigration.newBuilder()
+								.setImage(image)
+								.setTag(this.migrationTag)
+								.setOriginalContainer(this.container)
+								.setTcpEstablished(true)
+				)
+				.build();
+
+		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
+			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
+			ChannelUtils.sendMessage(message, dOut);
+		}
 	}
 
 	private void compressAndSendMemoryData() throws Exception {
@@ -121,6 +128,7 @@ public class MigrationOperator implements Preferences {
 		Protocol.Message message = Protocol.Message.newBuilder()
 				.setType(Protocol.Message.Type.MEMORY_DATA)
 				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
+								.setOriginalContainer(this.container)
 								.setData(bytes)
 				)
 				.build();
@@ -142,14 +150,7 @@ public class MigrationOperator implements Preferences {
 		System.out.println("OK");
 	}
 
-	private void restore(String trgContainer) {
-		System.out.println("Restoring to container " + trgContainer);
-		this.dockerClient.restoreContainerCmd(trgContainer)
-				.withCriuOptions(new CriuOptions(this.imageDir, this.workDir, true))
-				.withForce(true)
-				.exec();
-		System.out.println("OK");
-	}
+
 
 	private String commit() {
 		// TODO You have to handle containers with the same image (Put Random num on commit name)
@@ -203,5 +204,14 @@ public class MigrationOperator implements Preferences {
 				.exec();
 		System.out.println("OK");
 		return newContainer;
+	}
+
+	private void restore(String trgContainer) {
+		System.out.println("Restoring to container " + trgContainer);
+		this.dockerClient.restoreContainerCmd(trgContainer)
+				.withCriuOptions(new CriuOptions(this.imageDir, this.workDir, true))
+				.withForce(true)
+				.exec();
+		System.out.println("OK");
 	}
 }

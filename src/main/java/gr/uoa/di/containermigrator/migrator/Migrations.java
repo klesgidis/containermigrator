@@ -13,4 +13,10 @@ public class Migrations {
 		if (migrations == null) migrations = new ConcurrentHashMap<>();
 		return migrations;
 	}
+
+	private static ConcurrentMap<String, SlaveMigrationOperator> slaves = null;
+	public synchronized static ConcurrentMap<String, SlaveMigrationOperator> getSlaves() {
+		if (slaves == null) slaves = new ConcurrentHashMap<>();
+		return slaves;
+	}
 }

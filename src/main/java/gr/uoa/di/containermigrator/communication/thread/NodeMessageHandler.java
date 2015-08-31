@@ -1,15 +1,13 @@
 package gr.uoa.di.containermigrator.communication.thread;
 
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.model.CriuOptions;
 import com.github.dockerjava.core.command.PullImageResultCallback;
 import gr.uoa.di.containermigrator.communication.protocol.Protocol;
 import gr.uoa.di.containermigrator.global.Global;
 import gr.uoa.di.containermigrator.global.Preferences;
-import gr.uoa.di.containermigrator.migrator.UnZip;
+import gr.uoa.di.containermigrator.migrator.Migrations;
+import gr.uoa.di.containermigrator.migrator.SlaveMigrationOperator;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -28,11 +26,11 @@ public class NodeMessageHandler implements Runnable, Preferences {
 	public void run() {
 		//System.out.println(this.message.toString());
 		switch (this.message.getType()) {
-			case RESTORE:
-				this.handleRestore();
+			case WARM_UP:
+				this.handleWarmUp(this.message.getWarmUp().getImage());
 				break;
-			case PULL:
-				this.handlePull(this.message.getPull().getImage(), "");
+			case PREP_FOR_MIGRATION:
+				this.handlePrepForMigration();
 				break;
 			case MEMORY_DATA:
 				try {
@@ -44,50 +42,33 @@ public class NodeMessageHandler implements Runnable, Preferences {
 		}
 	}
 
-	private void handleRestore() {
-		final String taggedImage = this.message.getRestore().getImage() + ":" +
-				this.message.getRestore().getTag();
-		handlePull(this.message.getRestore().getImage(), this.message.getRestore().getTag());
-
-		final String trgContainer = "tomcat2";
-		System.out.println("Creating new container " + trgContainer + ".");
-		this.dockerClient.createContainerCmd(taggedImage)
-				.withName(trgContainer)
-				.exec();
-		System.out.println("OK");
-
-		System.out.println("Restoring to container " + trgContainer);
-
-		final String imageDir = IMAGE_BASE + "tomcat1" + "/mem/";
-		final String workDir = IMAGE_BASE + "tomcat1" + "/logs/";
-
-		this.dockerClient.restoreContainerCmd(trgContainer)
-				.withCriuOptions(new CriuOptions(imageDir, workDir, this.message.getRestore().getTcpEstablished()))
-				.withForce(true)
-				.exec();
-		System.out.println("OK");
-	}
-
-	private void handlePull(String image, String tag) {
+	private void handleWarmUp(String image) {
 		final String taggedImage = REGISTRY_URI + image;
 		System.out.println("Pulling " + taggedImage);
 		this.dockerClient.pullImageCmd(taggedImage)
-				.withTag(tag)
 				.exec(new PullImageResultCallback())
 				.awaitSuccess();
 		System.out.println("OK");
 	}
 
+	private void handlePrepForMigration() {
+		final String originalContainer = this.message.getPrepForMigration().getOriginalContainer();
+		final String image = this.message.getPrepForMigration().getImage();
+		final String tag = this.message.getPrepForMigration().getTag();
+		Migrations.getSlaves().putIfAbsent(originalContainer,
+				new SlaveMigrationOperator("tomcat2", image, tag));
+	}
+
 	private void handleMemoryData() throws IOException {
-		final String containerName = "tomcat2";
-		final String imageDir = IMAGE_BASE + containerName;
-		new File(imageDir).mkdirs();
+		SlaveMigrationOperator s = Migrations.getSlaves()
+				.get(this.message.getMemoryData().getOriginalContainer());
 
-		try (FileOutputStream fos = new FileOutputStream(imageDir + "/memory.zip")) {
-			fos.write(this.message.getMemoryData().getData().toByteArray());
-		}
+		s.prepareMemoryData(this.message.getMemoryData().getData().toByteArray());
 
-		UnZip unZip = new UnZip(imageDir + "/memory.zip", imageDir + "/mem/");
-		unZip.unZipIt();
+		s.pull();
+
+		s.createClone();
+
+		s.restore();
 	}
 }

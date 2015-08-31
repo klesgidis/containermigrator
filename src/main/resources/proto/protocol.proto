@@ -3,39 +3,43 @@ option java_package = "gr.uoa.di.containermigrator.communication.protocol";
 message Message {
 
     enum Type {
-        RESTORE = 0;
-        PULL = 1;
+        PREP_FOR_MIGRATION = 0;
+        WARM_UP = 1;
         MEMORY_DATA = 2;
     }
 
-    message Pull {
+    message WarmUp {
 
         required string image = 1;
 
     }
 
-    message Restore {
+    message PrepForMigration {
 
         required string image = 1;
 
         required string tag = 2;
 
-        optional bool tcpEstablished = 3;
+        required string originalContainer = 3;
+
+        optional bool tcpEstablished = 4;
 
         // TODO put other restore props too
     }
 
     message MemoryData {
 
-        required bytes data = 1;
+        required string originalContainer = 1;
+
+        required bytes data = 2;
 
     }
 
     required Type type = 1;
 
-    optional Restore restore = 2;
+    optional PrepForMigration prepForMigration = 2;
 
-    optional Pull pull = 3;
+    optional WarmUp warmUp = 3;
 
     optional MemoryData memoryData = 4;
 }
