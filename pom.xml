@@ -18,7 +18,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>gr.uoa.di.container-gr.uoa.di.containermigrator.migrator.Driver</mainClass>
+                            <mainClass>gr.uoa.di.container-gr.uoa.di.containermigrator.worker.migrator.Driver</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

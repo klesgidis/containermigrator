@@ -1,4 +1,56 @@
-option java_package = "gr.uoa.di.containermigrator.communication.protocol";
+option java_package = "gr.uoa.di.containermigrator.worker.communication.protocol";
+
+message AdminMessage {
+
+    enum Type {
+        START = 0;
+        MIGRATE = 1;
+        LIST = 2;
+    }
+
+    message Start {
+
+        required string container = 1;
+
+    }
+
+    message Migrate {
+
+        required string source = 1;
+
+        required string target = 2;
+
+        required string container = 3;
+
+    }
+
+    message List {
+
+        required string container = 1;
+
+    }
+
+    required Type type = 1;
+
+    optional Start start = 2;
+
+    optional Migrate migrate = 3;
+
+    optional List list = 4;
+}
+
+message AdminResponse {
+
+    enum Type {
+        OK = 0;
+        WARNING = 1;
+        ERROR = 2;
+    }
+
+    required Type type = 1;
+
+    optional string payload = 2;
+}
 
 message Message {
 
