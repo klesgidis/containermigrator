@@ -24,7 +24,6 @@ public class AdminListener implements Runnable {
 
 				new Thread(new AdminMessageHandler(socket)).start();
 
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
