@@ -1,11 +1,14 @@
 package gr.uoa.di.containermigrator.worker.communication.channel;
 
 import gr.uoa.di.containermigrator.worker.communication.protocol.Protocol;
+import gr.uoa.di.containermigrator.worker.global.Global;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 
 /**
  * @author Kyriakos Lesgidis
@@ -35,12 +38,23 @@ public class ChannelUtils {
 	}
 
 	public static void multicastMessage(Protocol.Message message) throws Exception {
-		// TODO for all
-		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
-			 Socket sock = cEnd.getSocket();
-			 DataOutputStream dOut = new DataOutputStream(sock.getOutputStream())) {
+		for (Map.Entry<String, Endpoint> entry : Global.getProperties().getPeers().entrySet()) {
+			try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(entry.getKey()).getClientEndpoint();
+				 Socket sock = cEnd.getSocket();
+				 DataOutputStream dOut = new DataOutputStream(sock.getOutputStream())) {
 
-			sendMessage(message, dOut);
+				sendMessage(message, dOut);
+			}
 		}
+	}
+
+	public static int fetchAvailablePort() {
+		int port = -1;
+		try (ServerSocket ss = new ServerSocket(0)) {
+			port = ss.getLocalPort();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return port;
 	}
 }

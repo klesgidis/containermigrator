@@ -1,11 +1,13 @@
 package gr.uoa.di.containermigrator.worker;
 
+import gr.uoa.di.containermigrator.worker.communication.channel.Endpoint;
 import gr.uoa.di.containermigrator.worker.communication.thread.AdminListener;
 import gr.uoa.di.containermigrator.worker.communication.thread.NodeListener;
 import gr.uoa.di.containermigrator.worker.docker.DockerUtils;
 import gr.uoa.di.containermigrator.worker.global.Global;
 import gr.uoa.di.containermigrator.worker.global.Preferences;
-import gr.uoa.di.containermigrator.worker.migrator.CliDaemon;
+
+import java.util.Map;
 
 /**
  * @author kyriakos
@@ -34,12 +36,9 @@ public class Driver implements Preferences{
 	public static void main(String[] args) throws Exception {
 		init(args);
 
-		new Thread(new NodeListener()).start();
+		for (Map.Entry<String, Endpoint> peer : Global.getProperties().getPeers().entrySet())
+			new Thread(new NodeListener(peer.getKey())).start();
 
 		new Thread(new AdminListener()).start();
-
-		//new Thread(new Listener(new InetSocketAddress("172.17.0.1", 8080))).start();
-//
-		new Thread(new CliDaemon()).start();
 	}
 }

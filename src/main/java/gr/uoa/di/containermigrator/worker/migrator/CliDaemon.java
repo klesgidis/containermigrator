@@ -33,7 +33,7 @@ public class CliDaemon implements Runnable {
 							break;
 						}
 
-						Migrations.getMigrations().putIfAbsent(containerName, new MigrationOperator(containerName));
+						//Migrations.getMigrations().putIfAbsent(containerName, new MigrationOperator(containerName));
 						break;
 					}
 					case "migrate": {
@@ -51,7 +51,7 @@ public class CliDaemon implements Runnable {
 									" from this command line and then migrate.");
 							break;
 						}
-						m.migrate();
+						//m.migrate();
 						break;
 					}
 					case "help": {

@@ -14,11 +14,11 @@ public class Global implements Preferences {
 		return client;
 	}
 
-	private static NodeProperties properties = null;
+	private static PeersProperties properties = null;
 	public static void loadProperties(String propertyFile) {
-		properties = new NodeProperties(propertyFile);
+		properties = new PeersProperties(propertyFile);
 	}
-	public static NodeProperties getProperties() {
+	public static PeersProperties getProperties() {
 		if (properties == null) throw new NullPointerException("Node properties are not initialized.");
 		return properties;
 	}

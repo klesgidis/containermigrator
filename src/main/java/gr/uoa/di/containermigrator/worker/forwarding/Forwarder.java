@@ -30,8 +30,6 @@ public class Forwarder implements Runnable, Closeable, Preferences {
 		try {
 			while ((count = in.read(buf)) != -1) {
 				StateMonitor.getInstance().checkState();
-//				System.out.println(Thread.currentThread().getName() + "-" + this.name
-//						+ ": " + buf.toString());
 				out.write(buf, 0, count);
 			}
 		} catch (SocketException e) {
@@ -51,7 +49,6 @@ public class Forwarder implements Runnable, Closeable, Preferences {
 			} catch (IOException e) {
 
 			}
-			System.out.println(Thread.currentThread().getName() + "-" + this.name + ": Finished");
 		}
 
 	}

@@ -14,15 +14,17 @@ import java.net.Socket;
  */
 public class Listener implements Runnable, Preferences {
 	private final InetSocketAddress address;
+	private final int listenPort;
 
-	public Listener(InetSocketAddress address) {
+	public Listener(int listenPort, InetSocketAddress address) {
+		this.listenPort = listenPort;
 		this.address = address;
 	}
 
 	public void run() {
 		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(Global.getProperties().getDataListenPort());
+			serverSocket = new ServerSocket(this.listenPort);
 
 			while (true) {
 				Socket src = serverSocket.accept();

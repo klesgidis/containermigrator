@@ -21,6 +21,7 @@ import java.net.InetSocketAddress;
  */
 public class MigrationOperator implements Preferences {
 	private final String container;
+	private final int listenPort;
 	private String image;
 	private final String migrationTag = "migrate";
 
@@ -30,9 +31,10 @@ public class MigrationOperator implements Preferences {
 	private final String containerBase;
 	private final DockerClient dockerClient;
 
-	public MigrationOperator(String container) throws Exception {
+	public MigrationOperator(String container, int listenPort) throws Exception {
 		this.dockerClient = Global.getDockerClient();
 		this.container = container;
+		this.listenPort = listenPort;
 		this.containerBase = IMAGE_BASE + container;
 		this.imageDir = this.containerBase + "/mem/";
 		this.workDir = this.containerBase + "/logs/";
@@ -61,10 +63,10 @@ public class MigrationOperator implements Preferences {
 		System.out.println("Warm up complete for " + this.container + ".");
 
 		InspectContainerResponse inspection = dockerClient.inspectContainerCmd(this.container).exec();
-		String address = inspection.getNetworkSettings().getIpAddress();
-		int port = inspection.getConfig().getExposedPorts()[0].getPort();
+		String forwardAddress = inspection.getNetworkSettings().getIpAddress();
+		int forwardPort = inspection.getConfig().getExposedPorts()[0].getPort();
 
-		new Thread(new Listener(new InetSocketAddress(address, port))).start();
+		new Thread(new Listener(this.listenPort, new InetSocketAddress(forwardAddress, forwardPort))).start();
 	}
 
 	private void multicastWarmUp(String image) throws Exception {
@@ -78,9 +80,9 @@ public class MigrationOperator implements Preferences {
 		ChannelUtils.multicastMessage(message);
 	}
 
-	public void migrate() throws Exception {
+	public void migrate(String host) throws Exception {
 		// Send message to peer to be prepared for the migration
-		this.sendPrepForMigration();
+		this.sendPrepForMigration(host);
 
 		// Checkpoint
 		this.checkpoint();
@@ -89,10 +91,10 @@ public class MigrationOperator implements Preferences {
 		this.commitAndPush();
 
 		// Send memory data
-		this.compressAndSendMemoryData();
+		this.compressAndSendMemoryData(host);
 	}
 
-	private void sendPrepForMigration() throws Exception {
+	private void sendPrepForMigration(String host) throws Exception {
 		Protocol.Message message = Protocol.Message.newBuilder()
 				.setType(Protocol.Message.Type.PREP_FOR_MIGRATION)
 				.setPrepForMigration(
@@ -104,8 +106,8 @@ public class MigrationOperator implements Preferences {
 				)
 				.build();
 
-		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
-			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
+		try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(host).getClientEndpoint();
+			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream())) {
 			ChannelUtils.sendMessage(message, dOut);
 		}
 	}
@@ -156,7 +158,7 @@ public class MigrationOperator implements Preferences {
 		return taggedImage;
 	}
 
-	private void compressAndSendMemoryData() throws Exception {
+	private void compressAndSendMemoryData(String host) throws Exception {
 		final String output = this.containerBase + "/memory.zip";
 		System.out.println("Compressing to " + output);
 		Zip zip = new Zip(this.imageDir, output);
@@ -174,7 +176,7 @@ public class MigrationOperator implements Preferences {
 				)
 				.build();
 
-		try (ClientEndpoint cEnd = EndpointCollection.getNodeChannel().getClientEndpoint();
+		try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(host).getClientEndpoint();
 			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
 			ChannelUtils.sendMessage(message, dOut);
 		}

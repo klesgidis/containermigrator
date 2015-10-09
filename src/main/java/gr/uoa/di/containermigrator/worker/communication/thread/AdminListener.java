@@ -3,6 +3,7 @@ package gr.uoa.di.containermigrator.worker.communication.thread;
 import gr.uoa.di.containermigrator.worker.communication.channel.ChannelUtils;
 import gr.uoa.di.containermigrator.worker.communication.channel.EndpointCollection;
 import gr.uoa.di.containermigrator.worker.communication.protocol.Protocol;
+import gr.uoa.di.containermigrator.worker.global.Global;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class AdminListener implements Runnable {
 		while (true) {
 			try {
 				System.out.println("Listening for admin connections...");
-				Socket socket = EndpointCollection.getAdminChannel().getServerEndpoint().getSocket().accept();
+				Socket socket = Global.getProperties().getAdmin().getServerEndpoint().getSocket().accept();
 
 				new Thread(new AdminMessageHandler(socket)).start();
 

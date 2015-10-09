@@ -2,27 +2,30 @@ package gr.uoa.di.containermigrator.worker.communication.channel;
 
 
 import gr.uoa.di.containermigrator.worker.global.Global;
-import gr.uoa.di.containermigrator.worker.global.NodeProperties;
+import gr.uoa.di.containermigrator.worker.global.PeersProperties;
 
 /**
  * @author Kyriakos Lesgidis
  * @email klesgidis@di.uoa.gr
  */
 public class EndpointCollection {
-	private final static NodeProperties props = Global.getProperties();
-	//private static Endpoint fileChannel = null;		// Files send and receive
-	private static Endpoint nodeChannel = null;		// Docker Commands for container's creation and initialization
-	private static Endpoint adminChannel = null;		// Docker Commands for container's creation and initialization
+	private final static PeersProperties props = Global.getProperties();
 
-	public static Endpoint getNodeChannel() {
-		if (nodeChannel == null) nodeChannel = new Endpoint(props.getDockerHost(),
-				props.getDockerClientPort(), props.getDockerServerPort());
-		return nodeChannel;
+	private Endpoint dataChannel = null;		// Communication with admin to receive data from clients
+	private Endpoint adminChannel = null;	// Communication with admin for commands
+
+	public EndpointCollection(String adminHost, int adminPort, int adminListenPort,
+							  int dataPort, int dataListenPort) {
+
+		this.dataChannel = new Endpoint(adminHost, dataPort, dataListenPort);
+		this.adminChannel = new Endpoint(adminHost, adminPort, adminListenPort);
 	}
 
-	public static Endpoint getAdminChannel() {
-		if (adminChannel == null) adminChannel = new Endpoint(props.getAdminHostname(),
-				props.getAdminPort(), props.getAdminListenPort());
+	public Endpoint getDataChannel() {
+		return dataChannel;
+	}
+
+	public Endpoint getAdminChannel() {
 		return adminChannel;
 	}
 }

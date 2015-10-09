@@ -61,6 +61,7 @@ public class AdminMessageHandler implements Runnable, Preferences {
 
 	private void handleMigrate(DataOutputStream dOut, Protocol.AdminMessage message) throws Exception {
 		final String container = message.getMigrate().getContainer();
+		final String target = message.getMigrate().getTarget();
 		if (!DockerUtils.exists(container)) {
 			this.sendErrorMessage(dOut, "Container " + container + " doesn't exist.");
 			return;
@@ -72,9 +73,9 @@ public class AdminMessageHandler implements Runnable, Preferences {
 			return;
 		}
 
-		m.migrate();
+		m.migrate(target);
 
-		this.sendOkMessage(dOut);
+		this.sendOkMessage(dOut, null);
 	}
 
 	private void handleStart(DataOutputStream dOut, Protocol.AdminMessage message) throws Exception {
@@ -84,9 +85,10 @@ public class AdminMessageHandler implements Runnable, Preferences {
 			return;
 		}
 
-		Migrations.getMigrations().putIfAbsent(container, new MigrationOperator(container));
+		Integer listenPort = ChannelUtils.fetchAvailablePort();
+		Migrations.getMigrations().putIfAbsent(container, new MigrationOperator(container, listenPort));
 
-		this.sendOkMessage(dOut);
+		this.sendOkMessage(dOut, listenPort.toString());
 	}
 
 	//endregion
@@ -101,11 +103,13 @@ public class AdminMessageHandler implements Runnable, Preferences {
 						.build(), dOut);
 	}
 
-	private void sendOkMessage(DataOutputStream dOut) throws IOException {
+	private void sendOkMessage(DataOutputStream dOut, String payload) throws IOException {
 		Protocol.AdminResponse.Builder responseBuilder = Protocol.AdminResponse.newBuilder();
-		ChannelUtils.sendAdminResponse(
-				responseBuilder.setType(Protocol.AdminResponse.Type.OK)
-						.build(), dOut);
+
+		responseBuilder.setType(Protocol.AdminResponse.Type.OK);
+		if (payload != null) responseBuilder.setPayload(payload);
+
+		ChannelUtils.sendAdminResponse(responseBuilder.build(), dOut);
 	}
 
 	//endregion

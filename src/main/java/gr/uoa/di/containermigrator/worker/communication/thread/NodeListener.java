@@ -3,6 +3,7 @@ package gr.uoa.di.containermigrator.worker.communication.thread;
 import gr.uoa.di.containermigrator.worker.communication.channel.ChannelUtils;
 import gr.uoa.di.containermigrator.worker.communication.channel.EndpointCollection;
 import gr.uoa.di.containermigrator.worker.communication.protocol.Protocol;
+import gr.uoa.di.containermigrator.worker.global.Global;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -14,13 +15,19 @@ import java.net.Socket;
  * @email klesgidis@di.uoa.gr
  */
 public class NodeListener implements Runnable {
+	private String host;
+
+	public NodeListener(String host) {
+		this.host = host;
+	}
 
 	@Override
 	public void run() {
 		while (true) {
 			try {
 				System.out.println("Listening for node connections...");
-				Socket socket = EndpointCollection.getNodeChannel().getServerEndpoint().getSocket().accept();
+				Socket socket = Global.getProperties().getPeers().get(host)
+						.getServerEndpoint().getSocket().accept();
 
 				try(InputStream in = socket.getInputStream(); DataInputStream dIn = new DataInputStream(in)) {
 					Protocol.Message message = ChannelUtils.recvMessage(dIn);
