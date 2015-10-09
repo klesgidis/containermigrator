@@ -37,8 +37,6 @@ public class PeersProperties implements Preferences{
 			String adminHost = prop.getProperty("node.me.admin.host");
 			int adminPort = Integer.parseInt(prop.getProperty("node.me.admin.port"));
 			int adminListenPort = Integer.parseInt(prop.getProperty("node.me.admin.listenPort"));
-			//int dataPort = Integer.parseInt(prop.getProperty("node.me.data.port"));
-			//int dataListenPort = Integer.parseInt(prop.getProperty("node.me.data.listenPort"));
 
 			this.admin = new Endpoint(adminHost, adminPort, adminListenPort);
 

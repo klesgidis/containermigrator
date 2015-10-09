@@ -28,7 +28,6 @@ public class Listener implements Runnable, Preferences {
 
 			while (true) {
 				Socket src = serverSocket.accept();
-				System.out.println("Accepted Connection from " + src.getInetAddress().toString());
 
 				new Thread(new Processor(src, new Socket(this.address.getHostName(), this.address.getPort())))
 						.start();

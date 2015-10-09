@@ -11,7 +11,7 @@ import gr.uoa.di.containermigrator.worker.global.PeersProperties;
 public class EndpointCollection {
 	private final static PeersProperties props = Global.getProperties();
 
-	private Endpoint dataChannel = null;		// Communication with admin to receive data from clients
+	private Endpoint dataChannel = null;	// Communication with admin to receive data from clients
 	private Endpoint adminChannel = null;	// Communication with admin for commands
 
 	public EndpointCollection(String adminHost, int adminPort, int adminListenPort,
