@@ -29,11 +29,8 @@ public class NodeListener implements Runnable {
 				Socket socket = Global.getProperties().getPeers().get(host)
 						.getServerEndpoint().getSocket().accept();
 
-				try(InputStream in = socket.getInputStream(); DataInputStream dIn = new DataInputStream(in)) {
-					Protocol.Message message = ChannelUtils.recvMessage(dIn);
+				new Thread(new NodeMessageHandler(socket)).start();
 
-					new Thread(new NodeMessageHandler(message)).start();
-				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -4,6 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.api.model.CriuOptions;
 import com.github.dockerjava.core.command.PullImageResultCallback;
+import gr.uoa.di.containermigrator.worker.communication.channel.ChannelUtils;
 import gr.uoa.di.containermigrator.worker.forwarding.Listener;
 import gr.uoa.di.containermigrator.worker.global.Global;
 import gr.uoa.di.containermigrator.worker.global.Preferences;
@@ -72,16 +73,23 @@ public class SlaveMigrationOperator implements Preferences {
 		System.out.println("OK");
 	}
 
-	public void restore(String originalIPAddress, int originalPort) {
+	public int restore(String originalIPAddress, int originalPort) {
 		System.out.println("Restoring to container " + this.container);
 		this.dockerClient.restoreContainerCmd(this.container)
 				.withCriuOptions(new CriuOptions(this.imageDir, this.workDir, true))
 				.withForce(true)
 				.exec();
 
-		new Thread(new Listener(1234, new InetSocketAddress(originalIPAddress, originalPort))).start();
+		int listenPort = ChannelUtils.fetchAvailablePort();
+
+		new Thread(new Listener(listenPort, new InetSocketAddress(originalIPAddress, originalPort))).start();
 
 		System.out.println("OK");
+
+		return listenPort;
 	}
 
+	public String getContainer() {
+		return container;
+	}
 }

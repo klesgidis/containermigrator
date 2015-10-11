@@ -12,6 +12,7 @@ import gr.uoa.di.containermigrator.worker.forwarding.Listener;
 import gr.uoa.di.containermigrator.worker.global.Global;
 import gr.uoa.di.containermigrator.worker.global.Preferences;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.net.InetSocketAddress;
@@ -83,7 +84,7 @@ public class MigrationOperator implements Preferences {
 		ChannelUtils.multicastMessage(message);
 	}
 
-	public void migrate(String host) throws Exception {
+	public String migrate(String host) throws Exception {
 		// Send message to peer to be prepared for the migration
 		this.sendPrepForMigration(host);
 
@@ -94,7 +95,7 @@ public class MigrationOperator implements Preferences {
 		this.commitAndPush();
 
 		// Send memory data
-		this.compressAndSendMemoryData(host);
+		return this.compressAndSendMemoryData(host);
 	}
 
 	private void sendPrepForMigration(String host) throws Exception {
@@ -161,7 +162,7 @@ public class MigrationOperator implements Preferences {
 		return taggedImage;
 	}
 
-	private void compressAndSendMemoryData(String host) throws Exception {
+	private String compressAndSendMemoryData(String host) throws Exception {
 		final String output = this.containerBase + "/memory.zip";
 		System.out.println("Compressing to " + output);
 		Zip zip = new Zip(this.imageDir, output);
@@ -181,11 +182,15 @@ public class MigrationOperator implements Preferences {
 				)
 				.build();
 
+		Protocol.Response response = null;
 		try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(host).getClientEndpoint();
-			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());) {
+			 DataOutputStream dOut = new DataOutputStream(cEnd.getSocket().getOutputStream());
+			 DataInputStream dIn = new DataInputStream(cEnd.getSocket().getInputStream())) {
 			ChannelUtils.sendMessage(message, dOut);
+
+			response = ChannelUtils.recvResponse(dIn);
 		}
 		System.out.println("OK");
+		return response.getPayload();
 	}
-
 }

@@ -37,6 +37,13 @@ public class ChannelUtils {
 		return Protocol.AdminResponse.parseDelimitedFrom(dIn);
 	}
 
+	public static void sendResponse(Protocol.Response response, DataOutputStream dOut) throws IOException {
+		response.writeDelimitedTo(dOut);
+	}
+	public static Protocol.Response recvResponse(DataInputStream dIn) throws IOException {
+		return Protocol.Response.parseDelimitedFrom(dIn);
+	}
+
 	public static void multicastMessage(Protocol.Message message) throws Exception {
 		for (Map.Entry<String, Endpoint> entry : Global.getProperties().getPeers().entrySet()) {
 			try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(entry.getKey()).getClientEndpoint();

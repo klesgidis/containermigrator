@@ -100,6 +100,19 @@ message Message {
     optional MemoryData memoryData = 4;
 }
 
+message Response {
+
+    enum Type {
+        OK = 0;
+        WARNING = 1;
+        ERROR = 2;
+    }
+
+    required Type type = 1;
+
+    optional string payload = 2;
+}
+
 //message NodeCmd {
 //    enum Type {
 //        CREATE_CONTAINER = 0;

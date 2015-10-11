@@ -73,9 +73,9 @@ public class AdminMessageHandler implements Runnable, Preferences {
 			return;
 		}
 
-		m.migrate(target);
+		String containerAndListenPort = m.migrate(target);
 
-		this.sendOkMessage(dOut, null);
+		this.sendOkMessage(dOut, containerAndListenPort);
 	}
 
 	private void handleStart(DataOutputStream dOut, Protocol.AdminMessage message) throws Exception {
