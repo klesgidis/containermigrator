@@ -25,7 +25,6 @@ public class NodeMessageHandler implements Runnable, Preferences {
 
 	@Override
 	public void run() {
-		//System.out.println(this.message.toString());
 		switch (this.message.getType()) {
 			case WARM_UP:
 				this.handleWarmUp(this.message.getWarmUp().getImage());
@@ -52,17 +51,24 @@ public class NodeMessageHandler implements Runnable, Preferences {
 		System.out.println("OK");
 	}
 
-	private void handlePrepForMigration() {
+	private String handlePrepForMigration() {
 		final String originalContainer = this.message.getPrepForMigration().getOriginalContainer();
 		final String image = this.message.getPrepForMigration().getImage();
 		final String tag = this.message.getPrepForMigration().getTag();
+		final String newContainerName = "tomcat2";
 		Migrations.getSlaves().putIfAbsent(originalContainer,
-				new SlaveMigrationOperator("tomcat2", image, tag));
+				new SlaveMigrationOperator(newContainerName, image, tag));
+
+		return newContainerName;
 	}
 
 	private void handleMemoryData() throws IOException {
+		final String originalContainer = this.message.getMemoryData().getOriginalContainer();
+		final String originalIPAddress = this.message.getMemoryData().getOriginalIPAddress();
+		final int originalPort = this.message.getMemoryData().getOriginalPort();
+
 		SlaveMigrationOperator s = Migrations.getSlaves()
-				.get(this.message.getMemoryData().getOriginalContainer());
+				.get(originalContainer);
 
 		s.prepareMemoryData(this.message.getMemoryData().getData().toByteArray());
 
@@ -70,6 +76,6 @@ public class NodeMessageHandler implements Runnable, Preferences {
 
 		s.createClone();
 
-		s.restore();
+		s.restore(originalIPAddress, originalPort);
 	}
 }

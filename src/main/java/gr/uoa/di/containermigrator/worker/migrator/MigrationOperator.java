@@ -21,6 +21,9 @@ import java.net.InetSocketAddress;
  */
 public class MigrationOperator implements Preferences {
 	private final String container;
+	private String ipAddress;
+	private int port;
+
 	private final int listenPort;
 	private String image;
 	private final String migrationTag = "migrate";
@@ -49,7 +52,7 @@ public class MigrationOperator implements Preferences {
 		this.init();
 	}
 
-	public void init() throws Exception {
+	private void init() throws Exception {
 		System.out.println("Warming up " + this.container + ".");
 
 		// Send initial image to registry
@@ -63,10 +66,10 @@ public class MigrationOperator implements Preferences {
 		System.out.println("Warm up complete for " + this.container + ".");
 
 		InspectContainerResponse inspection = dockerClient.inspectContainerCmd(this.container).exec();
-		String forwardAddress = inspection.getNetworkSettings().getIpAddress();
-		int forwardPort = inspection.getConfig().getExposedPorts()[0].getPort();
+		this.ipAddress = inspection.getNetworkSettings().getIpAddress();
+		this.port = inspection.getConfig().getExposedPorts()[0].getPort();
 
-		new Thread(new Listener(this.listenPort, new InetSocketAddress(forwardAddress, forwardPort))).start();
+		new Thread(new Listener(this.listenPort, new InetSocketAddress(this.ipAddress, this.port))).start();
 	}
 
 	private void multicastWarmUp(String image) throws Exception {
@@ -172,6 +175,8 @@ public class MigrationOperator implements Preferences {
 				.setType(Protocol.Message.Type.MEMORY_DATA)
 				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
 								.setOriginalContainer(this.container)
+								.setOriginalIPAddress(this.ipAddress)
+								.setOriginalPort(this.port)
 								.setData(bytes)
 				)
 				.build();

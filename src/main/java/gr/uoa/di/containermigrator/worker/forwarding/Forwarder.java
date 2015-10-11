@@ -29,14 +29,11 @@ public class Forwarder implements Runnable, Closeable, Preferences {
 
 		try {
 			while ((count = in.read(buf)) != -1) {
-				StateMonitor.getInstance().checkState();
 				out.write(buf, 0, count);
 			}
 		} catch (SocketException e) {
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			try {

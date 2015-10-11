@@ -13,6 +13,7 @@ import java.util.Map;
  * @author kyriakos
  */
 public class Driver implements Preferences{
+
 	private static void usage() {
 		System.out.println("Usage: containermigrator <property-file>");
 		System.exit(1);
@@ -41,4 +42,5 @@ public class Driver implements Preferences{
 
 		new Thread(new AdminListener()).start();
 	}
+
 }

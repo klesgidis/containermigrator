@@ -4362,13 +4362,13 @@ public final class Protocol {
       com.google.protobuf.ByteString
           getOriginalContainerBytes();
 
-      // optional bool tcpEstablished = 4;
+      // optional bool tcpEstablished = 5;
       /**
-       * <code>optional bool tcpEstablished = 4;</code>
+       * <code>optional bool tcpEstablished = 5;</code>
        */
       boolean hasTcpEstablished();
       /**
-       * <code>optional bool tcpEstablished = 4;</code>
+       * <code>optional bool tcpEstablished = 5;</code>
        */
       boolean getTcpEstablished();
     }
@@ -4438,7 +4438,7 @@ public final class Protocol {
                 originalContainer_ = input.readBytes();
                 break;
               }
-              case 32: {
+              case 40: {
                 bitField0_ |= 0x00000008;
                 tcpEstablished_ = input.readBool();
                 break;
@@ -4612,17 +4612,17 @@ public final class Protocol {
         }
       }
 
-      // optional bool tcpEstablished = 4;
-      public static final int TCPESTABLISHED_FIELD_NUMBER = 4;
+      // optional bool tcpEstablished = 5;
+      public static final int TCPESTABLISHED_FIELD_NUMBER = 5;
       private boolean tcpEstablished_;
       /**
-       * <code>optional bool tcpEstablished = 4;</code>
+       * <code>optional bool tcpEstablished = 5;</code>
        */
       public boolean hasTcpEstablished() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional bool tcpEstablished = 4;</code>
+       * <code>optional bool tcpEstablished = 5;</code>
        */
       public boolean getTcpEstablished() {
         return tcpEstablished_;
@@ -4668,7 +4668,7 @@ public final class Protocol {
           output.writeBytes(3, getOriginalContainerBytes());
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeBool(4, tcpEstablished_);
+          output.writeBool(5, tcpEstablished_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -4693,7 +4693,7 @@ public final class Protocol {
         }
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBoolSize(4, tcpEstablished_);
+            .computeBoolSize(5, tcpEstablished_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -5158,22 +5158,22 @@ public final class Protocol {
           return this;
         }
 
-        // optional bool tcpEstablished = 4;
+        // optional bool tcpEstablished = 5;
         private boolean tcpEstablished_ ;
         /**
-         * <code>optional bool tcpEstablished = 4;</code>
+         * <code>optional bool tcpEstablished = 5;</code>
          */
         public boolean hasTcpEstablished() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
         /**
-         * <code>optional bool tcpEstablished = 4;</code>
+         * <code>optional bool tcpEstablished = 5;</code>
          */
         public boolean getTcpEstablished() {
           return tcpEstablished_;
         }
         /**
-         * <code>optional bool tcpEstablished = 4;</code>
+         * <code>optional bool tcpEstablished = 5;</code>
          */
         public Builder setTcpEstablished(boolean value) {
           bitField0_ |= 0x00000008;
@@ -5182,7 +5182,7 @@ public final class Protocol {
           return this;
         }
         /**
-         * <code>optional bool tcpEstablished = 4;</code>
+         * <code>optional bool tcpEstablished = 5;</code>
          */
         public Builder clearTcpEstablished() {
           bitField0_ = (bitField0_ & ~0x00000008);
@@ -5220,13 +5220,50 @@ public final class Protocol {
       com.google.protobuf.ByteString
           getOriginalContainerBytes();
 
-      // required bytes data = 2;
+      // required string originalIPAddress = 2;
       /**
-       * <code>required bytes data = 2;</code>
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
+       */
+      boolean hasOriginalIPAddress();
+      /**
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
+       */
+      java.lang.String getOriginalIPAddress();
+      /**
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
+       */
+      com.google.protobuf.ByteString
+          getOriginalIPAddressBytes();
+
+      // required int32 originalPort = 3;
+      /**
+       * <code>required int32 originalPort = 3;</code>
+       */
+      boolean hasOriginalPort();
+      /**
+       * <code>required int32 originalPort = 3;</code>
+       */
+      int getOriginalPort();
+
+      // required bytes data = 4;
+      /**
+       * <code>required bytes data = 4;</code>
        */
       boolean hasData();
       /**
-       * <code>required bytes data = 2;</code>
+       * <code>required bytes data = 4;</code>
        */
       com.google.protobuf.ByteString getData();
     }
@@ -5288,6 +5325,16 @@ public final class Protocol {
               }
               case 18: {
                 bitField0_ |= 0x00000002;
+                originalIPAddress_ = input.readBytes();
+                break;
+              }
+              case 24: {
+                bitField0_ |= 0x00000004;
+                originalPort_ = input.readInt32();
+                break;
+              }
+              case 34: {
+                bitField0_ |= 0x00000008;
                 data_ = input.readBytes();
                 break;
               }
@@ -5374,17 +5421,88 @@ public final class Protocol {
         }
       }
 
-      // required bytes data = 2;
-      public static final int DATA_FIELD_NUMBER = 2;
-      private com.google.protobuf.ByteString data_;
+      // required string originalIPAddress = 2;
+      public static final int ORIGINALIPADDRESS_FIELD_NUMBER = 2;
+      private java.lang.Object originalIPAddress_;
       /**
-       * <code>required bytes data = 2;</code>
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
        */
-      public boolean hasData() {
+      public boolean hasOriginalIPAddress() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required bytes data = 2;</code>
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
+       */
+      public java.lang.String getOriginalIPAddress() {
+        java.lang.Object ref = originalIPAddress_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            originalIPAddress_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>required string originalIPAddress = 2;</code>
+       *
+       * <pre>
+       * After restore container has the same IP, although docker says otherwisw
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getOriginalIPAddressBytes() {
+        java.lang.Object ref = originalIPAddress_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalIPAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      // required int32 originalPort = 3;
+      public static final int ORIGINALPORT_FIELD_NUMBER = 3;
+      private int originalPort_;
+      /**
+       * <code>required int32 originalPort = 3;</code>
+       */
+      public boolean hasOriginalPort() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 originalPort = 3;</code>
+       */
+      public int getOriginalPort() {
+        return originalPort_;
+      }
+
+      // required bytes data = 4;
+      public static final int DATA_FIELD_NUMBER = 4;
+      private com.google.protobuf.ByteString data_;
+      /**
+       * <code>required bytes data = 4;</code>
+       */
+      public boolean hasData() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required bytes data = 4;</code>
        */
       public com.google.protobuf.ByteString getData() {
         return data_;
@@ -5392,6 +5510,8 @@ public final class Protocol {
 
       private void initFields() {
         originalContainer_ = "";
+        originalIPAddress_ = "";
+        originalPort_ = 0;
         data_ = com.google.protobuf.ByteString.EMPTY;
       }
       private byte memoizedIsInitialized = -1;
@@ -5400,6 +5520,14 @@ public final class Protocol {
         if (isInitialized != -1) return isInitialized == 1;
 
         if (!hasOriginalContainer()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasOriginalIPAddress()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasOriginalPort()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -5418,7 +5546,13 @@ public final class Protocol {
           output.writeBytes(1, getOriginalContainerBytes());
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, data_);
+          output.writeBytes(2, getOriginalIPAddressBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeInt32(3, originalPort_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeBytes(4, data_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -5435,7 +5569,15 @@ public final class Protocol {
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, data_);
+            .computeBytesSize(2, getOriginalIPAddressBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(3, originalPort_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(4, data_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -5555,8 +5697,12 @@ public final class Protocol {
           super.clear();
           originalContainer_ = "";
           bitField0_ = (bitField0_ & ~0x00000001);
-          data_ = com.google.protobuf.ByteString.EMPTY;
+          originalIPAddress_ = "";
           bitField0_ = (bitField0_ & ~0x00000002);
+          originalPort_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          data_ = com.google.protobuf.ByteString.EMPTY;
+          bitField0_ = (bitField0_ & ~0x00000008);
           return this;
         }
 
@@ -5592,6 +5738,14 @@ public final class Protocol {
           if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
+          result.originalIPAddress_ = originalIPAddress_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.originalPort_ = originalPort_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
           result.data_ = data_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
@@ -5614,6 +5768,14 @@ public final class Protocol {
             originalContainer_ = other.originalContainer_;
             onChanged();
           }
+          if (other.hasOriginalIPAddress()) {
+            bitField0_ |= 0x00000002;
+            originalIPAddress_ = other.originalIPAddress_;
+            onChanged();
+          }
+          if (other.hasOriginalPort()) {
+            setOriginalPort(other.getOriginalPort());
+          }
           if (other.hasData()) {
             setData(other.getData());
           }
@@ -5623,6 +5785,14 @@ public final class Protocol {
 
         public final boolean isInitialized() {
           if (!hasOriginalContainer()) {
+            
+            return false;
+          }
+          if (!hasOriginalIPAddress()) {
+            
+            return false;
+          }
+          if (!hasOriginalPort()) {
             
             return false;
           }
@@ -5726,37 +5896,168 @@ public final class Protocol {
           return this;
         }
 
-        // required bytes data = 2;
-        private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+        // required string originalIPAddress = 2;
+        private java.lang.Object originalIPAddress_ = "";
         /**
-         * <code>required bytes data = 2;</code>
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
          */
-        public boolean hasData() {
+        public boolean hasOriginalIPAddress() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         /**
-         * <code>required bytes data = 2;</code>
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
+         */
+        public java.lang.String getOriginalIPAddress() {
+          java.lang.Object ref = originalIPAddress_;
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
+            originalIPAddress_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
+         */
+        public com.google.protobuf.ByteString
+            getOriginalIPAddressBytes() {
+          java.lang.Object ref = originalIPAddress_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            originalIPAddress_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
+         */
+        public Builder setOriginalIPAddress(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          originalIPAddress_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
+         */
+        public Builder clearOriginalIPAddress() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          originalIPAddress_ = getDefaultInstance().getOriginalIPAddress();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required string originalIPAddress = 2;</code>
+         *
+         * <pre>
+         * After restore container has the same IP, although docker says otherwisw
+         * </pre>
+         */
+        public Builder setOriginalIPAddressBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          originalIPAddress_ = value;
+          onChanged();
+          return this;
+        }
+
+        // required int32 originalPort = 3;
+        private int originalPort_ ;
+        /**
+         * <code>required int32 originalPort = 3;</code>
+         */
+        public boolean hasOriginalPort() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>required int32 originalPort = 3;</code>
+         */
+        public int getOriginalPort() {
+          return originalPort_;
+        }
+        /**
+         * <code>required int32 originalPort = 3;</code>
+         */
+        public Builder setOriginalPort(int value) {
+          bitField0_ |= 0x00000004;
+          originalPort_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required int32 originalPort = 3;</code>
+         */
+        public Builder clearOriginalPort() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          originalPort_ = 0;
+          onChanged();
+          return this;
+        }
+
+        // required bytes data = 4;
+        private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+        /**
+         * <code>required bytes data = 4;</code>
+         */
+        public boolean hasData() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>required bytes data = 4;</code>
          */
         public com.google.protobuf.ByteString getData() {
           return data_;
         }
         /**
-         * <code>required bytes data = 2;</code>
+         * <code>required bytes data = 4;</code>
          */
         public Builder setData(com.google.protobuf.ByteString value) {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000008;
           data_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>required bytes data = 2;</code>
+         * <code>required bytes data = 4;</code>
          */
         public Builder clearData() {
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000008);
           data_ = getDefaultInstance().getData();
           onChanged();
           return this;
@@ -6668,19 +6969,20 @@ public final class Protocol {
       "(\n\004Type\022\t\n\005START\020\000\022\013\n\007MIGRATE\020\001\022\010\n\004LIST\020" +
       "\002\"k\n\rAdminResponse\022!\n\004type\030\001 \002(\0162\023.Admin",
       "Response.Type\022\017\n\007payload\030\002 \001(\t\"&\n\004Type\022\006" +
-      "\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002\"\226\003\n\007Messa" +
+      "\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002\"\307\003\n\007Messa" +
       "ge\022\033\n\004type\030\001 \002(\0162\r.Message.Type\0223\n\020prepF" +
       "orMigration\030\002 \001(\0132\031.Message.PrepForMigra" +
       "tion\022\037\n\006warmUp\030\003 \001(\0132\017.Message.WarmUp\022\'\n" +
       "\nmemoryData\030\004 \001(\0132\023.Message.MemoryData\032\027" +
       "\n\006WarmUp\022\r\n\005image\030\001 \002(\t\032a\n\020PrepForMigrat" +
       "ion\022\r\n\005image\030\001 \002(\t\022\013\n\003tag\030\002 \002(\t\022\031\n\021origi" +
-      "nalContainer\030\003 \002(\t\022\026\n\016tcpEstablished\030\004 \001" +
-      "(\010\0325\n\nMemoryData\022\031\n\021originalContainer\030\001 ",
-      "\002(\t\022\014\n\004data\030\002 \002(\014\"<\n\004Type\022\026\n\022PREP_FOR_MI" +
-      "GRATION\020\000\022\013\n\007WARM_UP\020\001\022\017\n\013MEMORY_DATA\020\002B" +
-      ";\n9gr.uoa.di.containermigrator.worker.co" +
-      "mmunication.protocol"
+      "nalContainer\030\003 \002(\t\022\026\n\016tcpEstablished\030\005 \001" +
+      "(\010\032f\n\nMemoryData\022\031\n\021originalContainer\030\001 ",
+      "\002(\t\022\031\n\021originalIPAddress\030\002 \002(\t\022\024\n\014origin" +
+      "alPort\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"<\n\004Type\022\026\n\022PR" +
+      "EP_FOR_MIGRATION\020\000\022\013\n\007WARM_UP\020\001\022\017\n\013MEMOR" +
+      "Y_DATA\020\002B;\n9gr.uoa.di.containermigrator." +
+      "worker.communication.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6740,7 +7042,7 @@ public final class Protocol {
           internal_static_Message_MemoryData_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Message_MemoryData_descriptor,
-              new java.lang.String[] { "OriginalContainer", "Data", });
+              new java.lang.String[] { "OriginalContainer", "OriginalIPAddress", "OriginalPort", "Data", });
           return null;
         }
       };

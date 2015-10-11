@@ -74,7 +74,7 @@ message Message {
 
         required string originalContainer = 3;
 
-        optional bool tcpEstablished = 4;
+        optional bool tcpEstablished = 5;
 
         // TODO put other restore props too
     }
@@ -83,7 +83,11 @@ message Message {
 
         required string originalContainer = 1;
 
-        required bytes data = 2;
+        required string originalIPAddress = 2;  // After restore container has the same IP, although docker says otherwisw
+
+        required int32 originalPort = 3;
+
+        required bytes data = 4;
 
     }
 
