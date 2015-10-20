@@ -96,7 +96,7 @@ public class NodeMessageHandler implements Runnable, Preferences {
 			Mount[] mounts = this.dockerClient.inspectContainerCmd(s.getContainer())
 					.exec()
 					.getMounts();
-			if (mounts.length != 0) throw new Exception("The target container contains no mounts.");
+			if (mounts.length == 0) throw new Exception("The target container contains no mounts.");
 
 			String extractLocation = mounts[0].getSource();
 

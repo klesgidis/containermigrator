@@ -136,7 +136,6 @@ public class MigrationOperator implements Preferences {
 	}
 
 	private String commit() {
-		// TODO You have to handle containers with the same image (Put Random num on commit name)
 		System.out.println("Committing container " + this.container);
 		this.dockerClient.commitCmd(this.container)
 				.withRepository(this.image)
@@ -178,19 +177,21 @@ public class MigrationOperator implements Preferences {
 
 		System.out.println("Sending data");
 		ByteString memBytes = MigrationUtils.FileInputStreamToByteString(new File(memOutput));
-		Protocol.Message.Builder builder = Protocol.Message.newBuilder()
-				.setType(Protocol.Message.Type.MEMORY_DATA)
-				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
-								.setOriginalContainer(this.container)
-								.setOriginalIPAddress(this.ipAddress)
-								.setOriginalPort(this.port)
-								.setData(memBytes)
-				);
-		if (volOutput != null)
-			builder.getMemoryData().toBuilder()
-					.setVolumeData(MigrationUtils.FileInputStreamToByteString(new File(volOutput)));
+		Protocol.Message.MemoryData.Builder builder = Protocol.Message.MemoryData.newBuilder()
+				.setOriginalContainer(this.container)
+				.setOriginalIPAddress(this.ipAddress)
+				.setOriginalPort(this.port)
+				.setData(memBytes);
 
-		Protocol.Message message = builder.build();
+		if (volOutput != null)
+			builder.setVolumeData(MigrationUtils.FileInputStreamToByteString(new File(volOutput)));
+
+		Protocol.Message message = Protocol.Message.newBuilder()
+				.setType(Protocol.Message.Type.MEMORY_DATA)
+				.setMemoryData(
+						builder
+				)
+				.build();
 
 		Protocol.Response response = null;
 		try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(host).getClientEndpoint();
