@@ -122,6 +122,7 @@ public class MigrationOperator implements Preferences {
 				.withImagesDirectory(this.imageDir)
 				.withWorkDirectory(this.workDir)
 				.withTcpEstablished(true)
+				.withFileLocks(true)
 				.exec();
 		System.out.println("OK");
 	}
@@ -146,7 +147,7 @@ public class MigrationOperator implements Preferences {
 	}
 
 	private String pushToRegistry(String image) {
-		final String taggedImage = REGISTRY_URI + image;
+		final String taggedImage = REGISTRY_URI + image.replace(":", "_");
 		System.out.println("Tagging image " + image);
 		this.dockerClient.tagImageCmd(image, taggedImage, this.migrationTag)
 				.withForce()
@@ -163,24 +164,33 @@ public class MigrationOperator implements Preferences {
 	}
 
 	private String compressAndSendMemoryData(String host) throws Exception {
-		final String output = this.containerBase + "/memory.zip";
-		System.out.println("Compressing to " + output);
-		Zip zip = new Zip(this.imageDir, output);
-		zip.generateFileList();
-		zip.zipIt();
-		System.out.println("OK");
+		final String memOutput = this.containerBase + "/memory.zip";
+		String volOutput = null;
+
+		this.compressData(this.imageDir, memOutput);
+
+		InspectContainerResponse inspection = this.dockerClient.inspectContainerCmd(this.container)
+				.exec();
+		if (inspection.getMounts().length == 1) {
+			volOutput = this.containerBase + "/volume.zip";
+			this.compressData(inspection.getMounts()[0].getSource(), volOutput);
+		}
 
 		System.out.println("Sending data");
-		ByteString bytes = MigrationUtils.FileInputStreamToByteString(new File(output));
-		Protocol.Message message = Protocol.Message.newBuilder()
+		ByteString memBytes = MigrationUtils.FileInputStreamToByteString(new File(memOutput));
+		Protocol.Message.Builder builder = Protocol.Message.newBuilder()
 				.setType(Protocol.Message.Type.MEMORY_DATA)
 				.setMemoryData(Protocol.Message.MemoryData.newBuilder()
 								.setOriginalContainer(this.container)
 								.setOriginalIPAddress(this.ipAddress)
 								.setOriginalPort(this.port)
-								.setData(bytes)
-				)
-				.build();
+								.setData(memBytes)
+				);
+		if (volOutput != null)
+			builder.getMemoryData().toBuilder()
+					.setVolumeData(MigrationUtils.FileInputStreamToByteString(new File(volOutput)));
+
+		Protocol.Message message = builder.build();
 
 		Protocol.Response response = null;
 		try (ClientEndpoint cEnd = Global.getProperties().getPeers().get(host).getClientEndpoint();
@@ -192,5 +202,13 @@ public class MigrationOperator implements Preferences {
 		}
 		System.out.println("OK");
 		return response.getPayload();
+	}
+
+	private void compressData(String folder, String output) {
+		System.out.println("Compressing to " + output);
+		Zip zip = new Zip(folder, output);
+		zip.generateFileList();
+		zip.zipIt();
+		System.out.println("OK");
 	}
 }

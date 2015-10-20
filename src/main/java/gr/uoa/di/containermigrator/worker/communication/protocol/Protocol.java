@@ -5266,6 +5266,16 @@ public final class Protocol {
        * <code>required bytes data = 4;</code>
        */
       com.google.protobuf.ByteString getData();
+
+      // optional bytes volumeData = 5;
+      /**
+       * <code>optional bytes volumeData = 5;</code>
+       */
+      boolean hasVolumeData();
+      /**
+       * <code>optional bytes volumeData = 5;</code>
+       */
+      com.google.protobuf.ByteString getVolumeData();
     }
     /**
      * Protobuf type {@code Message.MemoryData}
@@ -5336,6 +5346,11 @@ public final class Protocol {
               case 34: {
                 bitField0_ |= 0x00000008;
                 data_ = input.readBytes();
+                break;
+              }
+              case 42: {
+                bitField0_ |= 0x00000010;
+                volumeData_ = input.readBytes();
                 break;
               }
             }
@@ -5508,11 +5523,28 @@ public final class Protocol {
         return data_;
       }
 
+      // optional bytes volumeData = 5;
+      public static final int VOLUMEDATA_FIELD_NUMBER = 5;
+      private com.google.protobuf.ByteString volumeData_;
+      /**
+       * <code>optional bytes volumeData = 5;</code>
+       */
+      public boolean hasVolumeData() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional bytes volumeData = 5;</code>
+       */
+      public com.google.protobuf.ByteString getVolumeData() {
+        return volumeData_;
+      }
+
       private void initFields() {
         originalContainer_ = "";
         originalIPAddress_ = "";
         originalPort_ = 0;
         data_ = com.google.protobuf.ByteString.EMPTY;
+        volumeData_ = com.google.protobuf.ByteString.EMPTY;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -5554,6 +5586,9 @@ public final class Protocol {
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           output.writeBytes(4, data_);
         }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeBytes(5, volumeData_);
+        }
         getUnknownFields().writeTo(output);
       }
 
@@ -5578,6 +5613,10 @@ public final class Protocol {
         if (((bitField0_ & 0x00000008) == 0x00000008)) {
           size += com.google.protobuf.CodedOutputStream
             .computeBytesSize(4, data_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(5, volumeData_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -5703,6 +5742,8 @@ public final class Protocol {
           bitField0_ = (bitField0_ & ~0x00000004);
           data_ = com.google.protobuf.ByteString.EMPTY;
           bitField0_ = (bitField0_ & ~0x00000008);
+          volumeData_ = com.google.protobuf.ByteString.EMPTY;
+          bitField0_ = (bitField0_ & ~0x00000010);
           return this;
         }
 
@@ -5747,6 +5788,10 @@ public final class Protocol {
             to_bitField0_ |= 0x00000008;
           }
           result.data_ = data_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.volumeData_ = volumeData_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -5778,6 +5823,9 @@ public final class Protocol {
           }
           if (other.hasData()) {
             setData(other.getData());
+          }
+          if (other.hasVolumeData()) {
+            setVolumeData(other.getVolumeData());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -6059,6 +6107,42 @@ public final class Protocol {
         public Builder clearData() {
           bitField0_ = (bitField0_ & ~0x00000008);
           data_ = getDefaultInstance().getData();
+          onChanged();
+          return this;
+        }
+
+        // optional bytes volumeData = 5;
+        private com.google.protobuf.ByteString volumeData_ = com.google.protobuf.ByteString.EMPTY;
+        /**
+         * <code>optional bytes volumeData = 5;</code>
+         */
+        public boolean hasVolumeData() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <code>optional bytes volumeData = 5;</code>
+         */
+        public com.google.protobuf.ByteString getVolumeData() {
+          return volumeData_;
+        }
+        /**
+         * <code>optional bytes volumeData = 5;</code>
+         */
+        public Builder setVolumeData(com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+          volumeData_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional bytes volumeData = 5;</code>
+         */
+        public Builder clearVolumeData() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          volumeData_ = getDefaultInstance().getVolumeData();
           onChanged();
           return this;
         }
@@ -7634,7 +7718,7 @@ public final class Protocol {
       "(\n\004Type\022\t\n\005START\020\000\022\013\n\007MIGRATE\020\001\022\010\n\004LIST\020" +
       "\002\"k\n\rAdminResponse\022!\n\004type\030\001 \002(\0162\023.Admin",
       "Response.Type\022\017\n\007payload\030\002 \001(\t\"&\n\004Type\022\006" +
-      "\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002\"\307\003\n\007Messa" +
+      "\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002\"\333\003\n\007Messa" +
       "ge\022\033\n\004type\030\001 \002(\0162\r.Message.Type\0223\n\020prepF" +
       "orMigration\030\002 \001(\0132\031.Message.PrepForMigra" +
       "tion\022\037\n\006warmUp\030\003 \001(\0132\017.Message.WarmUp\022\'\n" +
@@ -7642,15 +7726,15 @@ public final class Protocol {
       "\n\006WarmUp\022\r\n\005image\030\001 \002(\t\032a\n\020PrepForMigrat" +
       "ion\022\r\n\005image\030\001 \002(\t\022\013\n\003tag\030\002 \002(\t\022\031\n\021origi" +
       "nalContainer\030\003 \002(\t\022\026\n\016tcpEstablished\030\005 \001" +
-      "(\010\032f\n\nMemoryData\022\031\n\021originalContainer\030\001 ",
+      "(\010\032z\n\nMemoryData\022\031\n\021originalContainer\030\001 ",
       "\002(\t\022\031\n\021originalIPAddress\030\002 \002(\t\022\024\n\014origin" +
-      "alPort\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\"<\n\004Type\022\026\n\022PR" +
-      "EP_FOR_MIGRATION\020\000\022\013\n\007WARM_UP\020\001\022\017\n\013MEMOR" +
-      "Y_DATA\020\002\"a\n\010Response\022\034\n\004type\030\001 \002(\0162\016.Res" +
-      "ponse.Type\022\017\n\007payload\030\002 \001(\t\"&\n\004Type\022\006\n\002O" +
-      "K\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002B;\n9gr.uoa.di" +
-      ".containermigrator.worker.communication." +
-      "protocol"
+      "alPort\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\022\022\n\nvolumeData" +
+      "\030\005 \001(\014\"<\n\004Type\022\026\n\022PREP_FOR_MIGRATION\020\000\022\013" +
+      "\n\007WARM_UP\020\001\022\017\n\013MEMORY_DATA\020\002\"a\n\010Response" +
+      "\022\034\n\004type\030\001 \002(\0162\016.Response.Type\022\017\n\007payloa" +
+      "d\030\002 \001(\t\"&\n\004Type\022\006\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005" +
+      "ERROR\020\002B;\n9gr.uoa.di.containermigrator.w" +
+      "orker.communication.protocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7710,7 +7794,7 @@ public final class Protocol {
           internal_static_Message_MemoryData_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Message_MemoryData_descriptor,
-              new java.lang.String[] { "OriginalContainer", "OriginalIPAddress", "OriginalPort", "Data", });
+              new java.lang.String[] { "OriginalContainer", "OriginalIPAddress", "OriginalPort", "Data", "VolumeData", });
           internal_static_Response_descriptor =
             getDescriptor().getMessageTypes().get(3);
           internal_static_Response_fieldAccessorTable = new

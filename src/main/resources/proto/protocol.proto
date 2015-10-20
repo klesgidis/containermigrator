@@ -89,6 +89,8 @@ message Message {
 
         required bytes data = 4;
 
+        optional bytes volumeData = 5;
+
     }
 
     required Type type = 1;
@@ -112,53 +114,3 @@ message Response {
 
     optional string payload = 2;
 }
-
-//message NodeCmd {
-//    enum Type {
-//        CREATE_CONTAINER = 0;
-//        CREATE_CONTAINER_RESPONSE = 1;
-//    }
-//    message MigrateContainerCmd {
-//        required string migrationId = 1;
-//        optional string newContainerName = 2;
-//
-//        required bool attachStderr = 3;
-//        required bool attachStdin = 4;
-//        required bool attachStdout = 5;
-//        required int32 cpuShares = 6;
-//        required bool disableNetwork = 7;
-//        optional string hostConfig = 8;
-//        required string image = 9;
-//        required int64 memoryLimit = 10;
-//        required int64 memorySwap = 11;
-//        required bool stdInOnce = 12;
-//        required bool stdinOpen = 13;
-//        required bool tty = 14;
-//
-//        repeated string cmd = 15;
-//        repeated string entrypoint = 16;
-//        repeated string env = 17;
-//        repeated string portSpecs = 18;
-//        optional string user = 19;
-//        optional string workingDir = 20;
-//
-//    }
-//    message MigrateContainerCmdResponse {
-//        enum Status {
-//            SUCCESS = 0;
-//            ERROR = 1;
-//        }
-//
-//        required Status status = 1;
-//
-//        optional string containerName = 2;
-//
-//        repeated string messages = 3;
-//    }
-//
-//    required string migrationId = 1;
-//    required Type type = 2;
-//    optional MigrateContainerCmd migrateContainerCmd = 3;
-//    optional MigrateContainerCmdResponse migrateContainerCmdResponse = 4;
-//
-//}

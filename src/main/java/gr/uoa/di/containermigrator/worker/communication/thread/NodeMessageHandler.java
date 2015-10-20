@@ -1,6 +1,8 @@
 package gr.uoa.di.containermigrator.worker.communication.thread;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.DockerException;
+import com.github.dockerjava.api.model.Mount;
 import com.github.dockerjava.core.command.PullImageResultCallback;
 import gr.uoa.di.containermigrator.worker.communication.channel.ChannelUtils;
 import gr.uoa.di.containermigrator.worker.communication.protocol.Protocol;
@@ -44,7 +46,7 @@ public class NodeMessageHandler implements Runnable, Preferences {
 				case MEMORY_DATA:
 					try {
 						this.handleMemoryData(message, dOut);
-					} catch (IOException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					break;
@@ -57,7 +59,7 @@ public class NodeMessageHandler implements Runnable, Preferences {
 	}
 
 	private void handleWarmUp(String image) {
-		final String taggedImage = REGISTRY_URI + image;
+		final String taggedImage = REGISTRY_URI + image.replace(":", "_");
 		System.out.println("Pulling " + taggedImage);
 		this.dockerClient.pullImageCmd(taggedImage)
 				.exec(new PullImageResultCallback())
@@ -69,14 +71,14 @@ public class NodeMessageHandler implements Runnable, Preferences {
 		final String originalContainer = message.getPrepForMigration().getOriginalContainer();
 		final String image = message.getPrepForMigration().getImage();
 		final String tag = message.getPrepForMigration().getTag();
-		final String newContainerName = "tomcat2";
+		final String newContainerName = "";
 		Migrations.getSlaves().putIfAbsent(originalContainer,
 				new SlaveMigrationOperator(newContainerName, image, tag));
 
 		return newContainerName;
 	}
 
-	private void handleMemoryData(Protocol.Message message, DataOutputStream dOut) throws IOException {
+	private void handleMemoryData(Protocol.Message message, DataOutputStream dOut) throws Exception {
 		final String originalContainer = message.getMemoryData().getOriginalContainer();
 		final String originalIPAddress = message.getMemoryData().getOriginalIPAddress();
 		final int originalPort = message.getMemoryData().getOriginalPort();
@@ -90,12 +92,23 @@ public class NodeMessageHandler implements Runnable, Preferences {
 
 		s.createClone();
 
+		if (message.getMemoryData().hasVolumeData()) {
+			Mount[] mounts = this.dockerClient.inspectContainerCmd(s.getContainer())
+					.exec()
+					.getMounts();
+			if (mounts.length != 0) throw new Exception("The target container contains no mounts.");
+
+			String extractLocation = mounts[0].getSource();
+
+			s.prepareVolumeData(message.getMemoryData().getVolumeData().toByteArray(), extractLocation);
+		}
+
 		int listenPort = s.restore(originalIPAddress, originalPort);
 		String container = s.getContainer();
 
 		ChannelUtils.sendResponse(
 				Protocol.Response.newBuilder()
-					.setType(Protocol.Response.Type.OK)
+						.setType(Protocol.Response.Type.OK)
 					.setPayload(container+"#"+listenPort)
 					.build(),
 				dOut

@@ -10,8 +10,6 @@ public interface Preferences {
 
 	int BUF_SIZE = 1024;
 
-	int LISTENING_PORT = 1234;
-
 	String IMAGE_BASE = "/tmp/containermigrator/";
 
 	String REGISTRY_CONTAINER = "registry";
