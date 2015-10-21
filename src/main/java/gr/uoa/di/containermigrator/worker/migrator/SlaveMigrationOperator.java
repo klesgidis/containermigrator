@@ -10,6 +10,7 @@ import gr.uoa.di.containermigrator.worker.forwarding.Listener;
 import gr.uoa.di.containermigrator.worker.global.Global;
 import gr.uoa.di.containermigrator.worker.global.Preferences;
 
+import javax.xml.parsers.FactoryConfigurationError;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,10 +28,10 @@ public class SlaveMigrationOperator implements Preferences {
 
 	private final DockerClient dockerClient;
 
-	private final String containerBase;
+	private String containerBase;
 
-	private final String imageDir;
-	private final String workDir;
+	private String imageDir;
+	private String workDir;
 
 	public SlaveMigrationOperator(String container, String image, String tag) {
 		this.container = container;
@@ -38,10 +39,15 @@ public class SlaveMigrationOperator implements Preferences {
 		this.tag = tag;
 		this.dockerClient = Global.getDockerClient();
 
+		//if (!this.container.equals("")) initFolders();
+	}
+
+	private void initFolders() {
 		this.containerBase = IMAGE_BASE + container;
 		this.imageDir = this.containerBase + "/mem/";
 		this.workDir = this.containerBase + "/logs/";
 
+		new File(this.containerBase).delete();
 		new File(this.imageDir).mkdirs();
 		new File(this.workDir).mkdirs();
 	}
@@ -86,6 +92,8 @@ public class SlaveMigrationOperator implements Preferences {
 				.exec()
 				.getName()
 		.replace("/", "");
+
+		this.initFolders();
 
 		System.out.println("OK - " + this.container);
 	}

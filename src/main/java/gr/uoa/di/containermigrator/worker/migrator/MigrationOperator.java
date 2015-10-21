@@ -47,8 +47,7 @@ public class MigrationOperator implements Preferences {
 		this.image = inspection.getConfig().getImage();
 
 		// Initialize folders
-		new File(this.imageDir).mkdirs();
-		new File(this.workDir).mkdirs();
+		this.initFolders();
 
 		this.init();
 	}
@@ -71,6 +70,12 @@ public class MigrationOperator implements Preferences {
 		this.port = inspection.getConfig().getExposedPorts()[0].getPort();
 
 		new Thread(new Listener(this.listenPort, new InetSocketAddress(this.ipAddress, this.port))).start();
+	}
+
+	private void initFolders() {
+		new File(this.containerBase).delete();
+		new File(this.imageDir).mkdirs();
+		new File(this.workDir).mkdirs();
 	}
 
 	private void multicastWarmUp(String image) throws Exception {
@@ -121,7 +126,7 @@ public class MigrationOperator implements Preferences {
 		this.dockerClient.checkpointContainerCmd(this.container)
 				.withImagesDirectory(this.imageDir)
 				.withWorkDirectory(this.workDir)
-				.withTcpEstablished(true)
+				.withTCPEstablished(true)
 				.withFileLocks(true)
 				.exec();
 		System.out.println("OK");

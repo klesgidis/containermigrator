@@ -86,11 +86,11 @@ public class NodeMessageHandler implements Runnable, Preferences {
 		SlaveMigrationOperator s = Migrations.getSlaves()
 				.get(originalContainer);
 
-		s.prepareMemoryData(message.getMemoryData().getData().toByteArray());
-
 		s.pull();
 
 		s.createClone();
+
+		s.prepareMemoryData(message.getMemoryData().getData().toByteArray());
 
 		if (message.getMemoryData().hasVolumeData()) {
 			Mount[] mounts = this.dockerClient.inspectContainerCmd(s.getContainer())
