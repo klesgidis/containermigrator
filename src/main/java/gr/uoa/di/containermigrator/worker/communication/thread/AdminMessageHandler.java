@@ -22,10 +22,8 @@ import java.net.Socket;
  */
 public class AdminMessageHandler implements Runnable, Preferences {
 	private final Socket socket;
-	private final DockerClient dockerClient;
 
 	public AdminMessageHandler(Socket socket) {
-		this.dockerClient = Global.getDockerClient();
 		this.socket = socket;
 	}
 
@@ -44,8 +42,8 @@ public class AdminMessageHandler implements Runnable, Preferences {
 					case MIGRATE:
 						handleMigrate(dOut, message);
 						break;
-					case LIST:
-						System.out.println("List");
+					case PING:
+						handlePing(dOut, message);
 						break;
 				}
 			} catch (Exception e) {
@@ -58,6 +56,10 @@ public class AdminMessageHandler implements Runnable, Preferences {
 	}
 
 	//region Handlers
+
+	private void handlePing(DataOutputStream dOut, Protocol.AdminMessage message) throws Exception {
+		this.sendOkMessage(dOut, null);
+	}
 
 	private void handleMigrate(DataOutputStream dOut, Protocol.AdminMessage message) throws Exception {
 		final String container = message.getMigrate().getContainer();

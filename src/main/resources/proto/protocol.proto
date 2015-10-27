@@ -5,7 +5,7 @@ message AdminMessage {
     enum Type {
         START = 0;
         MIGRATE = 1;
-        LIST = 2;
+        PING = 2;
     }
 
     message Start {
@@ -24,19 +24,12 @@ message AdminMessage {
 
     }
 
-    message List {
-
-        required string container = 1;
-
-    }
-
     required Type type = 1;
 
     optional Start start = 2;
 
     optional Migrate migrate = 3;
 
-    optional List list = 4;
 }
 
 message AdminResponse {
@@ -76,7 +69,6 @@ message Message {
 
         optional bool tcpEstablished = 5;
 
-        // TODO put other restore props too
     }
 
     message MemoryData {

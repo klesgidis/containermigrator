@@ -48,20 +48,6 @@ public final class Protocol {
      * <code>optional .AdminMessage.Migrate migrate = 3;</code>
      */
     gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.MigrateOrBuilder getMigrateOrBuilder();
-
-    // optional .AdminMessage.List list = 4;
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    boolean hasList();
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List getList();
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder getListOrBuilder();
   }
   /**
    * Protobuf type {@code AdminMessage}
@@ -151,19 +137,6 @@ public final class Protocol {
               bitField0_ |= 0x00000004;
               break;
             }
-            case 34: {
-              gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000008) == 0x00000008)) {
-                subBuilder = list_.toBuilder();
-              }
-              list_ = input.readMessage(gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(list_);
-                list_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000008;
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -217,9 +190,9 @@ public final class Protocol {
        */
       MIGRATE(1, 1),
       /**
-       * <code>LIST = 2;</code>
+       * <code>PING = 2;</code>
        */
-      LIST(2, 2),
+      PING(2, 2),
       ;
 
       /**
@@ -231,9 +204,9 @@ public final class Protocol {
        */
       public static final int MIGRATE_VALUE = 1;
       /**
-       * <code>LIST = 2;</code>
+       * <code>PING = 2;</code>
        */
-      public static final int LIST_VALUE = 2;
+      public static final int PING_VALUE = 2;
 
 
       public final int getNumber() { return value; }
@@ -242,7 +215,7 @@ public final class Protocol {
         switch (value) {
           case 0: return START;
           case 1: return MIGRATE;
-          case 2: return LIST;
+          case 2: return PING;
           default: return null;
         }
       }
@@ -1580,485 +1553,6 @@ public final class Protocol {
       // @@protoc_insertion_point(class_scope:AdminMessage.Migrate)
     }
 
-    public interface ListOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-
-      // required string container = 1;
-      /**
-       * <code>required string container = 1;</code>
-       */
-      boolean hasContainer();
-      /**
-       * <code>required string container = 1;</code>
-       */
-      java.lang.String getContainer();
-      /**
-       * <code>required string container = 1;</code>
-       */
-      com.google.protobuf.ByteString
-          getContainerBytes();
-    }
-    /**
-     * Protobuf type {@code AdminMessage.List}
-     */
-    public static final class List extends
-        com.google.protobuf.GeneratedMessage
-        implements ListOrBuilder {
-      // Use List.newBuilder() to construct.
-      private List(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-        super(builder);
-        this.unknownFields = builder.getUnknownFields();
-      }
-      private List(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-      private static final List defaultInstance;
-      public static List getDefaultInstance() {
-        return defaultInstance;
-      }
-
-      public List getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-
-      private final com.google.protobuf.UnknownFieldSet unknownFields;
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-          getUnknownFields() {
-        return this.unknownFields;
-      }
-      private List(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        initFields();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 10: {
-                bitField0_ |= 0x00000001;
-                container_ = input.readBytes();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.internal_static_AdminMessage_List_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.internal_static_AdminMessage_List_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.class, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder.class);
-      }
-
-      public static com.google.protobuf.Parser<List> PARSER =
-          new com.google.protobuf.AbstractParser<List>() {
-        public List parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new List(input, extensionRegistry);
-        }
-      };
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<List> getParserForType() {
-        return PARSER;
-      }
-
-      private int bitField0_;
-      // required string container = 1;
-      public static final int CONTAINER_FIELD_NUMBER = 1;
-      private java.lang.Object container_;
-      /**
-       * <code>required string container = 1;</code>
-       */
-      public boolean hasContainer() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string container = 1;</code>
-       */
-      public java.lang.String getContainer() {
-        java.lang.Object ref = container_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            container_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>required string container = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getContainerBytes() {
-        java.lang.Object ref = container_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          container_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      private void initFields() {
-        container_ = "";
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-
-        if (!hasContainer()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeBytes(1, getContainerBytes());
-        }
-        getUnknownFields().writeTo(output);
-      }
-
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(1, getContainerBytes());
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input, extensionRegistry);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code AdminMessage.List}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.internal_static_AdminMessage_List_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.internal_static_AdminMessage_List_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.class, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder.class);
-        }
-
-        // Construct using gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-
-        public Builder clear() {
-          super.clear();
-          container_ = "";
-          bitField0_ = (bitField0_ & ~0x00000001);
-          return this;
-        }
-
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.internal_static_AdminMessage_List_descriptor;
-        }
-
-        public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List getDefaultInstanceForType() {
-          return gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance();
-        }
-
-        public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List build() {
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List buildPartial() {
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List result = new gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.container_ = container_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List) {
-            return mergeFrom((gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List other) {
-          if (other == gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance()) return this;
-          if (other.hasContainer()) {
-            bitField0_ |= 0x00000001;
-            container_ = other.container_;
-            onChanged();
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          if (!hasContainer()) {
-            
-            return false;
-          }
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List) e.getUnfinishedMessage();
-            throw e;
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-        private int bitField0_;
-
-        // required string container = 1;
-        private java.lang.Object container_ = "";
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public boolean hasContainer() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public java.lang.String getContainer() {
-          java.lang.Object ref = container_;
-          if (!(ref instanceof java.lang.String)) {
-            java.lang.String s = ((com.google.protobuf.ByteString) ref)
-                .toStringUtf8();
-            container_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-            getContainerBytes() {
-          java.lang.Object ref = container_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            container_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public Builder setContainer(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-          container_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public Builder clearContainer() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          container_ = getDefaultInstance().getContainer();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string container = 1;</code>
-         */
-        public Builder setContainerBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-          container_ = value;
-          onChanged();
-          return this;
-        }
-
-        // @@protoc_insertion_point(builder_scope:AdminMessage.List)
-      }
-
-      static {
-        defaultInstance = new List(true);
-        defaultInstance.initFields();
-      }
-
-      // @@protoc_insertion_point(class_scope:AdminMessage.List)
-    }
-
     private int bitField0_;
     // required .AdminMessage.Type type = 1;
     public static final int TYPE_FIELD_NUMBER = 1;
@@ -2120,33 +1614,10 @@ public final class Protocol {
       return migrate_;
     }
 
-    // optional .AdminMessage.List list = 4;
-    public static final int LIST_FIELD_NUMBER = 4;
-    private gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List list_;
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    public boolean hasList() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List getList() {
-      return list_;
-    }
-    /**
-     * <code>optional .AdminMessage.List list = 4;</code>
-     */
-    public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder getListOrBuilder() {
-      return list_;
-    }
-
     private void initFields() {
       type_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.Type.START;
       start_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.Start.getDefaultInstance();
       migrate_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.Migrate.getDefaultInstance();
-      list_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2169,12 +1640,6 @@ public final class Protocol {
           return false;
         }
       }
-      if (hasList()) {
-        if (!getList().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2190,9 +1655,6 @@ public final class Protocol {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeMessage(3, migrate_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, list_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2214,10 +1676,6 @@ public final class Protocol {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, migrate_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, list_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2329,7 +1787,6 @@ public final class Protocol {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getStartFieldBuilder();
           getMigrateFieldBuilder();
-          getListFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2352,12 +1809,6 @@ public final class Protocol {
           migrateBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (listBuilder_ == null) {
-          list_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance();
-        } else {
-          listBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -2406,14 +1857,6 @@ public final class Protocol {
         } else {
           result.migrate_ = migrateBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        if (listBuilder_ == null) {
-          result.list_ = list_;
-        } else {
-          result.list_ = listBuilder_.build();
-        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2439,9 +1882,6 @@ public final class Protocol {
         if (other.hasMigrate()) {
           mergeMigrate(other.getMigrate());
         }
-        if (other.hasList()) {
-          mergeList(other.getList());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -2459,12 +1899,6 @@ public final class Protocol {
         }
         if (hasMigrate()) {
           if (!getMigrate().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasList()) {
-          if (!getList().isInitialized()) {
             
             return false;
           }
@@ -2759,123 +2193,6 @@ public final class Protocol {
           migrate_ = null;
         }
         return migrateBuilder_;
-      }
-
-      // optional .AdminMessage.List list = 4;
-      private gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List list_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder> listBuilder_;
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public boolean hasList() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List getList() {
-        if (listBuilder_ == null) {
-          return list_;
-        } else {
-          return listBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public Builder setList(gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List value) {
-        if (listBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          list_ = value;
-          onChanged();
-        } else {
-          listBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public Builder setList(
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder builderForValue) {
-        if (listBuilder_ == null) {
-          list_ = builderForValue.build();
-          onChanged();
-        } else {
-          listBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public Builder mergeList(gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List value) {
-        if (listBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              list_ != gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance()) {
-            list_ =
-              gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.newBuilder(list_).mergeFrom(value).buildPartial();
-          } else {
-            list_ = value;
-          }
-          onChanged();
-        } else {
-          listBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public Builder clearList() {
-        if (listBuilder_ == null) {
-          list_ = gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.getDefaultInstance();
-          onChanged();
-        } else {
-          listBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder getListBuilder() {
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return getListFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      public gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder getListOrBuilder() {
-        if (listBuilder_ != null) {
-          return listBuilder_.getMessageOrBuilder();
-        } else {
-          return list_;
-        }
-      }
-      /**
-       * <code>optional .AdminMessage.List list = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder> 
-          getListFieldBuilder() {
-        if (listBuilder_ == null) {
-          listBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.List.Builder, gr.uoa.di.containermigrator.worker.communication.protocol.Protocol.AdminMessage.ListOrBuilder>(
-                  list_,
-                  getParentForChildren(),
-                  isClean());
-          list_ = null;
-        }
-        return listBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:AdminMessage)
@@ -7664,11 +6981,6 @@ public final class Protocol {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_AdminMessage_Migrate_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_AdminMessage_List_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_AdminMessage_List_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_AdminResponse_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -7708,33 +7020,32 @@ public final class Protocol {
   static {
     java.lang.String[] descriptorData = {
       "\n\'src/main/resources/proto/protocol.prot" +
-      "o\"\275\002\n\014AdminMessage\022 \n\004type\030\001 \002(\0162\022.Admin" +
+      "o\"\200\002\n\014AdminMessage\022 \n\004type\030\001 \002(\0162\022.Admin" +
       "Message.Type\022\"\n\005start\030\002 \001(\0132\023.AdminMessa" +
       "ge.Start\022&\n\007migrate\030\003 \001(\0132\025.AdminMessage" +
-      ".Migrate\022 \n\004list\030\004 \001(\0132\022.AdminMessage.Li" +
-      "st\032\032\n\005Start\022\021\n\tcontainer\030\001 \002(\t\032<\n\007Migrat" +
-      "e\022\016\n\006source\030\001 \002(\t\022\016\n\006target\030\002 \002(\t\022\021\n\tcon" +
-      "tainer\030\003 \002(\t\032\031\n\004List\022\021\n\tcontainer\030\001 \002(\t\"" +
-      "(\n\004Type\022\t\n\005START\020\000\022\013\n\007MIGRATE\020\001\022\010\n\004LIST\020" +
-      "\002\"k\n\rAdminResponse\022!\n\004type\030\001 \002(\0162\023.Admin",
-      "Response.Type\022\017\n\007payload\030\002 \001(\t\"&\n\004Type\022\006" +
-      "\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002\"\333\003\n\007Messa" +
-      "ge\022\033\n\004type\030\001 \002(\0162\r.Message.Type\0223\n\020prepF" +
-      "orMigration\030\002 \001(\0132\031.Message.PrepForMigra" +
-      "tion\022\037\n\006warmUp\030\003 \001(\0132\017.Message.WarmUp\022\'\n" +
-      "\nmemoryData\030\004 \001(\0132\023.Message.MemoryData\032\027" +
-      "\n\006WarmUp\022\r\n\005image\030\001 \002(\t\032a\n\020PrepForMigrat" +
-      "ion\022\r\n\005image\030\001 \002(\t\022\013\n\003tag\030\002 \002(\t\022\031\n\021origi" +
-      "nalContainer\030\003 \002(\t\022\026\n\016tcpEstablished\030\005 \001" +
-      "(\010\032z\n\nMemoryData\022\031\n\021originalContainer\030\001 ",
-      "\002(\t\022\031\n\021originalIPAddress\030\002 \002(\t\022\024\n\014origin" +
-      "alPort\030\003 \002(\005\022\014\n\004data\030\004 \002(\014\022\022\n\nvolumeData" +
-      "\030\005 \001(\014\"<\n\004Type\022\026\n\022PREP_FOR_MIGRATION\020\000\022\013" +
-      "\n\007WARM_UP\020\001\022\017\n\013MEMORY_DATA\020\002\"a\n\010Response" +
-      "\022\034\n\004type\030\001 \002(\0162\016.Response.Type\022\017\n\007payloa" +
-      "d\030\002 \001(\t\"&\n\004Type\022\006\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t\n\005" +
-      "ERROR\020\002B;\n9gr.uoa.di.containermigrator.w" +
-      "orker.communication.protocol"
+      ".Migrate\032\032\n\005Start\022\021\n\tcontainer\030\001 \002(\t\032<\n\007" +
+      "Migrate\022\016\n\006source\030\001 \002(\t\022\016\n\006target\030\002 \002(\t\022" +
+      "\021\n\tcontainer\030\003 \002(\t\"(\n\004Type\022\t\n\005START\020\000\022\013\n" +
+      "\007MIGRATE\020\001\022\010\n\004PING\020\002\"k\n\rAdminResponse\022!\n" +
+      "\004type\030\001 \002(\0162\023.AdminResponse.Type\022\017\n\007payl" +
+      "oad\030\002 \001(\t\"&\n\004Type\022\006\n\002OK\020\000\022\013\n\007WARNING\020\001\022\t",
+      "\n\005ERROR\020\002\"\333\003\n\007Message\022\033\n\004type\030\001 \002(\0162\r.Me" +
+      "ssage.Type\0223\n\020prepForMigration\030\002 \001(\0132\031.M" +
+      "essage.PrepForMigration\022\037\n\006warmUp\030\003 \001(\0132" +
+      "\017.Message.WarmUp\022\'\n\nmemoryData\030\004 \001(\0132\023.M" +
+      "essage.MemoryData\032\027\n\006WarmUp\022\r\n\005image\030\001 \002" +
+      "(\t\032a\n\020PrepForMigration\022\r\n\005image\030\001 \002(\t\022\013\n" +
+      "\003tag\030\002 \002(\t\022\031\n\021originalContainer\030\003 \002(\t\022\026\n" +
+      "\016tcpEstablished\030\005 \001(\010\032z\n\nMemoryData\022\031\n\021o" +
+      "riginalContainer\030\001 \002(\t\022\031\n\021originalIPAddr" +
+      "ess\030\002 \002(\t\022\024\n\014originalPort\030\003 \002(\005\022\014\n\004data\030",
+      "\004 \002(\014\022\022\n\nvolumeData\030\005 \001(\014\"<\n\004Type\022\026\n\022PRE" +
+      "P_FOR_MIGRATION\020\000\022\013\n\007WARM_UP\020\001\022\017\n\013MEMORY" +
+      "_DATA\020\002\"a\n\010Response\022\034\n\004type\030\001 \002(\0162\016.Resp" +
+      "onse.Type\022\017\n\007payload\030\002 \001(\t\"&\n\004Type\022\006\n\002OK" +
+      "\020\000\022\013\n\007WARNING\020\001\022\t\n\005ERROR\020\002B;\n9gr.uoa.di." +
+      "containermigrator.worker.communication.p" +
+      "rotocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7746,7 +7057,7 @@ public final class Protocol {
           internal_static_AdminMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_AdminMessage_descriptor,
-              new java.lang.String[] { "Type", "Start", "Migrate", "List", });
+              new java.lang.String[] { "Type", "Start", "Migrate", });
           internal_static_AdminMessage_Start_descriptor =
             internal_static_AdminMessage_descriptor.getNestedTypes().get(0);
           internal_static_AdminMessage_Start_fieldAccessorTable = new
@@ -7759,12 +7070,6 @@ public final class Protocol {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_AdminMessage_Migrate_descriptor,
               new java.lang.String[] { "Source", "Target", "Container", });
-          internal_static_AdminMessage_List_descriptor =
-            internal_static_AdminMessage_descriptor.getNestedTypes().get(2);
-          internal_static_AdminMessage_List_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_AdminMessage_List_descriptor,
-              new java.lang.String[] { "Container", });
           internal_static_AdminResponse_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_AdminResponse_fieldAccessorTable = new
